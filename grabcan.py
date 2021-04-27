@@ -34,11 +34,14 @@ for msg in can0:
     data = (binascii.hexlify(msg.data))
     
     #Data to Ints UwU
-    steering = int(binascii.hexlify(msg.data[:1]),16)+ int(binascii.hexlify(msg.data[:2]),16)*255/26
-    
+    steering = int(binascii.hexlify(msg.data[:1]),16)+ int(binascii.hexlify(msg.data[:2]),16)*255/26 
+    roundedsteer=round(steering*255/26)
     #print(str(id)+ str(data))
     #print(can0.recv(1))
     if( id == 2):
-        print(str(id) +" "+ "data:"+ "     "+ str(steering))
+        print(str(id) +" "+ "data:"+ "     "+ str(round(steering*255/26)))
+
+        if(roundedsteer >=230):
+            print("Hello world")
     
         
