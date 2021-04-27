@@ -30,14 +30,15 @@ can0 = can.interface.Bus(channel = 'can0', bustype = 'socketcan_ctypes')
 for msg in can0:
     
     # This is the vehical data and ids from canbus
-    time = datetime.now().second
-    data = (binascii.hexlify(msg.data))
-    steering = int(binascii.hexlify(msg.data[:1]),16)*255 + int(binascii.hexlify(msg.data[:2]),16)/26
     id = int(msg.arbitration_id)
+    data = (binascii.hexlify(msg.data))
+    
+    #Data to Ints UwU
+    steering = int(binascii.hexlify(msg.data[:1]),16)+ int(binascii.hexlify(msg.data[:2]),16)*255/26
     
     #print(str(id)+ str(data))
     #print(can0.recv(1))
     if( id == 2):
-        print(str(id) + "data:"+ "     "+ str(steering)+ str(time))
+        print(str(id) +" "+ "data:"+ "     "+ str(steering))
     
         
