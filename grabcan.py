@@ -1,7 +1,9 @@
 """ 
 testing canbus ids to see if it works
 """
+import binascii
 import os
+import struct
 import can
 import logging
 from configparser import ConfigParser
@@ -16,7 +18,12 @@ logging.debug("CanBus Starting can network...")
 #while True:
 can0 = can.interface.Bus(channel = 'can0', bustype = 'socketcan_ctypes')
 for msg in can0:
-    #
-    print("{:x}".format(msg.arbitration_id))
+    
+    data = (binascii.hexlify(msg.data), 16)
+    id = int(msg.arbitration_id)
+
+
+
+    print (str(id) + "data:"+ str(data))
     
         
