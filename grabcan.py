@@ -32,7 +32,7 @@ for msg in can0:
     # This is the vehical data and ids from canbus
     time = datetime.now().second
     data = (binascii.hexlify(msg.data))
-    steering = int(binascii.hexlify(msg.data[:1]),16)
+    steering = int(binascii.hexlify(msg.data[:1]),16)*255 + int(binascii.hexlify(msg.data[:2]),16)/26
     id = int(msg.arbitration_id)
     
     #print(str(id)+ str(data))
