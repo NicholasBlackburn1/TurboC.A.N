@@ -19,12 +19,11 @@ logging.debug("CanBus Starting can network...")
 can0 = can.interface.Bus(channel = 'can0', bustype = 'socketcan_ctypes')
 for msg in can0:
     
-    # This is the vehical data and ids from canbus
     data = (binascii.hexlify(msg.data), 16)
     id = int(msg.arbitration_id)
 
 
 
-    print (str(id) + "data:"+ " "+ str(data))
+    print (str(id) + "data:"+ str(data))
     
         
