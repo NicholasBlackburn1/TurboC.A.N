@@ -13,13 +13,10 @@ print(os.name)
 logging.debug("CanBus Testing starting...")
 
 logging.debug("CanBus Starting can network...")
-while True:
-
-
-    can0 = can.interface.Bus(channel = 'can0', bustype = 'socketcan_ctypes')
-    logging.debug('Canbus data thats being sent is')
-    msg = str(can0.recv())
-
-    print(msg)
+#while True:
+can0 = can.interface.Bus(channel = 'can0', bustype = 'socketcan_ctypes')
+for msg in can0:
+    #
+    print("{:x}".format(msg.arbitration_id))
     
         
