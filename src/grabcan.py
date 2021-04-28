@@ -28,7 +28,8 @@ for msg in can0:
     id = int(msg.arbitration_id)
     data = msg.data
 
-    print(drivetrain.drivetrain.steeringWheelData(id,data))
+    print( "Steering Data"+ "   "+str(drivetrain.drivetrain.steeringWheelData(id,data)))
     
+    print( "Gas Data"+ "   "+str(drivetrain.drivetrain.gassPeddleData(id,data)))
     
         
