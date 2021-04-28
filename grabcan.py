@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 import numpy
 
 
-logging.basicConfig(filename=datetime.now().strftime(
+logging.basicConfig(filename="logs/"+datetime.now().strftime(
         "%Y_%m_%d-%I_%M_%S_%p_%s")+".log", level=logging.DEBUG)
 
 hl, = plt.plot([], [])
@@ -71,7 +71,9 @@ for msg in can0:
        print("gas peddle Data"+"  "+str(gassPeddleDataGeneral(id,data)))
     '''
 
-    logging.debug(str(id) +" "+ str(data))
-    if(id == 1300):
+    #logging.debug(str(id) +" "+ str(data))
+    if(id == 1040):
         print(data)
-        
+        print(data[:1])
+        print(data[:2])
+        logging.info(str(id) +" "+str(data))
