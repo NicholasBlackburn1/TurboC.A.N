@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 import numpy
 import threading
 
-from drivetrain.drivetrain import steeringWheelDataFine, steeringWheelDataGeneral
+from src.drivetrain.drivetrain import steeringWheelDataFine, steeringWheelDataGeneral
 
 logging.basicConfig(filename="logs/"+datetime.now().strftime(
         "%Y_%m_%d-%I_%M_%S_%p_%s")+".log", level=logging.DEBUG)
@@ -25,11 +25,6 @@ def update_line(hl, new_data):
     hl.set_ydata(numpy.append(hl.get_ydata(), new_data))
     plt.draw()
 
-def scatterData():
-        plt.draw()
-        plt.pause(0)
-        fig.show()
-        return
 
 #check system name, in linux will print 'posix' and in windows will print 'nt'
 print(os.name)
@@ -54,13 +49,7 @@ for msg in can0:
         print(data[2:4])
         print('SteringWeel FIne data'+ str(steeringWheelDataFine(data)))
         print("Steering Wheel data General:"+" "+str(steeringWheelDataGeneral(data)))
-        plt.scatter(steeringWheelDataGeneral(data),steeringWheelDataFine(data))
-        time.sleep(00.5)
-        logging.warn("Got Data But Now Graphing Hopedfully")
-        
- 
-scatterData()
-             
+      
 '''
     if(id == 1041):
        print(data)
