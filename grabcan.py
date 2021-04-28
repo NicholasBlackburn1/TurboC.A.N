@@ -42,6 +42,7 @@ for msg in can0:
     id = int(msg.arbitration_id)
     data = (binascii.hexlify(msg.data))
     
+    '''
     # Steering Wheel Id 
     if(id == 2):
         logging.warn("getting Data from Wheel")
@@ -55,14 +56,16 @@ for msg in can0:
     if(id == 1041):
        print(data)
        print("gas peddle Data"+"  "+str(gasPeddleDataGeneral(data)))
-    
+    '''
     #logging.debug(str(id) +" "+ str(data))
     if(id == 1040):
         
         print(data)
         print("data 1byte set:"+str(data[1]))
-        print("data 2byte set:"+str(data[2]))
+        print("data 2byte is gas peddle General Data:"+str(data[2]))
+        print("data 3byte is gas peddle Increment Fine data:"+ str(data[3]))
+        #print("data 7byte set:"+str(data[7]))
         #print(data[:2])
-        logging.info(str(id) +" "+str(data))
+        #logging.info(str(id) +" "+str(data))
 
 
