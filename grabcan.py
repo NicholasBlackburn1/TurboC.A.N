@@ -18,7 +18,8 @@ import threading
 
 from src.drivetrain.drivetrain import gasPeddleDataGeneral, steeringWheelDataFine, steeringWheelDataGeneral
 
-logging.basicConfig(filename="logs/"+datetime.now().strftime(
+name = input("Please enter Driving Tracking log name")
+logging.basicConfig(filename="logs/"+str(name)+datetime.now().strftime(
         "%Y_%m_%d-%I_%M_%S_%p_%s")+".log", level=logging.DEBUG)
 
 
@@ -54,7 +55,7 @@ for msg in can0:
     #logging.debug(str(id) +" "+ str(data))
     if(id == 1040):
         
-       logging.info(data)
+      
        logging.info("data 1byte set:"+str(data[1]))
        logging.info("data 2byte is gas peddle General Data:"+str(data[2]))
        logging.info("data 3byte is gas peddle Increment Fine data:"+ str(data[3]))
@@ -64,7 +65,8 @@ for msg in can0:
        logging.info("data 7byte set:"+str(data[7]))
        logging.info("data 8byte set:"+str(data[8]))
 
-    print(str(id)+ " "+str(data))
+ 
+    
 
-    if(id == 1281):
+    if(id == 1042):
         print(data)
