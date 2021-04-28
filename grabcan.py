@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 import numpy
 import threading
 
-from src.drivetrain.drivetrain import steeringWheelDataFine, steeringWheelDataGeneral
+from src.drivetrain.drivetrain import gasPeddleDataGeneral, steeringWheelDataFine, steeringWheelDataGeneral
 
 logging.basicConfig(filename="logs/"+datetime.now().strftime(
         "%Y_%m_%d-%I_%M_%S_%p_%s")+".log", level=logging.DEBUG)
@@ -49,11 +49,12 @@ for msg in can0:
         print(data[2:4])
         print('SteringWeel FIne data'+ str(steeringWheelDataFine(data)))
         print("Steering Wheel data General:"+" "+str(steeringWheelDataGeneral(data)))
-      
-'''
+        
+    
+
     if(id == 1041):
        print(data)
-       print("gas peddle Data"+"  "+str(gassPeddleDataGeneral(id,data)))
+       print("gas peddle Data"+"  "+str(gasPeddleDataGeneral(data)))
     
     #logging.debug(str(id) +" "+ str(data))
     if(id == 1040):
@@ -63,5 +64,5 @@ for msg in can0:
         print("data 2byte set:"+str(data[2]))
         #print(data[:2])
         logging.info(str(id) +" "+str(data))
-'''
+
 
