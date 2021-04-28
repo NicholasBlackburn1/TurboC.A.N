@@ -12,14 +12,9 @@ from configparser import ConfigParser
 import time 
 import matplotlib.pyplot as plt
 import numpy
-
+import drivetrain.drivetrain
     
-hl, = plt.plot([], [])
-
-def update_line(hl, new_data):
-    hl.set_xdata(numpy.append(hl.get_xdata(), new_data))
-    hl.set_ydata(numpy.append(hl.get_ydata(), new_data))
-    plt.draw()
+    
 #check system name, in linux will print 'posix' and in windows will print 'nt'
 print(os.name)
 logging.debug("CanBus Testing starting...")
@@ -31,17 +26,9 @@ for msg in can0:
     
     # This is the vehical data and ids from canbus
     id = int(msg.arbitration_id)
-    data = (binascii.hexlify(msg.data))
-    
-    #Data to Ints UwU
-    steering = int(binascii.hexlify(msg.data[:1]),16)+ int(binascii.hexlify(msg.data[:2]),16)*255/26 
-    roundedsteeringData=round(steering*255/26)
-    #print(str(id)+ str(data))
-    #print(can0.recv(1))
-    if( id == 2):
-        print(str(id) +" "+ "data:"+ "     "+ str(roundedsteeringData))
+    data = msg.data
 
-        if(roundedsteeringData >=230):
-            print("Hello world")
+    print(drivetrain.drivetrain.steeringWheelData(id,data))
+    
     
         

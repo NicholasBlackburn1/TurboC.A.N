@@ -7,7 +7,8 @@ import binascii
 
 
 # gets data from Steering System and retunds the rounding info
-def steeringWheelData(msg):
+def steeringWheelData(id,data):
     #Data to Ints UwU
-    steering = int(binascii.hexlify(msg.data[:1]),16)+ int(binascii.hexlify(msg.data[:2]),16)*255/26 
-    return round(steering*255/26)
+    if(id == 2):
+        steering = int(binascii.hexlify(data[:1]),16)+ int(binascii.hexlify(data[:2]),16)*255/26 
+        return steering
