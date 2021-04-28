@@ -3,6 +3,7 @@ testing canbus ids to see if it works
 """
 import binascii
 from builtins import print
+from cmath import sqrt
 from datetime import datetime
 import os
 import struct
@@ -24,12 +25,13 @@ def update_line(hl, new_data):
 # gets data from Steering System and retunds the rounding info
 def steeringWheelData(id,data):
     #Data to Ints UwU
-    return (int(binascii.hexlify(data[:2]),16)+ int(binascii.hexlify(data[2:4]),16)*255/26)
+    return (int(binascii.hexlify(data[:2]),16)+ int(binascii.hexlify(data[2:4]),16)*255)
 
 
 def gassPeddleData(id,data):
      #Data to Ints UwU
-    return  int(binascii.hexlify(data[:3]))
+    pos =int(binascii.hexlify(data[6:8]),16)/255
+    return pos
 
 #check system name, in linux will print 'posix' and in windows will print 'nt'
 print(os.name)
@@ -44,9 +46,11 @@ for msg in can0:
     id = int(msg.arbitration_id)
     data = (binascii.hexlify(msg.data))
     
-    if(id == 2):
-       print(data[:4])
-       print(data[2:4])
-       print("Steering Data"+"  "+str(steeringWheelData(id,data)))
+ 
+        
+    if(id == 1041):
+    
+      
+       print("gas peddle Data"+"  "+str(gassPeddleData(id,data)))
     
         
