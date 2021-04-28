@@ -14,6 +14,10 @@ import time
 import matplotlib.pyplot as plt
 import numpy
 
+
+logging.basicConfig(filename=datetime.now().strftime(
+        "%Y_%m_%d-%I_%M_%S_%p_%s")+".log", level=logging.DEBUG)
+
 hl, = plt.plot([], [])
 
 def update_line(hl, new_data):
@@ -32,9 +36,14 @@ def steeringWheelDataFine(id,data):
     return float(binascii.hexlify(data[:2]))
 
 
+def gassPeddleDataGeneral(id,data):
+     #Data to Ints UwU
+    pos =float(binascii.hexlify(data[6:8]))
+    return pos
+
 def gassPeddleData(id,data):
      #Data to Ints UwU
-    pos =float(binascii.hexlify(data[6:8]))*255/25
+    pos =float(binascii.hexlify(data[6]))
     return pos
 
 #check system name, in linux will print 'posix' and in windows will print 'nt'
@@ -50,15 +59,19 @@ for msg in can0:
     id = int(msg.arbitration_id)
     data = (binascii.hexlify(msg.data))
     
+    '''
     if(id == 2):
         print(data[:2])
         print(data[2:4])
         print('SteringWeel FIne data'+ str(steeringWheelDataFine(id,data)))
         print("Steering Wheel data General:"+" "+str(steeringWheelDataGeneral(id,data)))
-
-    '''     
+      
     if(id == 1041):
-       print("rounded data:" +str(round(gassPeddleData(id,data))))
-       print("gas peddle Data"+"  "+str(gassPeddleData(id,data)))
+       print(data)
+       print("gas peddle Data"+"  "+str(gassPeddleDataGeneral(id,data)))
     '''
+
+    logging.debug(str(id) +" "+ str(data))
+    if(id == 1300):
+        print(data)
         

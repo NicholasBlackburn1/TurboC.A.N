@@ -8,10 +8,12 @@ import binascii
 
 
 # gets data from Steering System and retunds the rounding info
-def steeringWheelData(id,data):
+def steeringWheelDataGeneral(data):
     #Data to Ints UwU
-    return (int(binascii.hexlify(data[:2]),16)+ int(binascii.hexlify(data[2:4]),16)*255)
+    return float(binascii.hexlify(data[2:4]))
 
-def gassPeddleData(id,data):
-     #Data to Ints UwU
-    return  int(binascii.hexlify(data[:3]),16)
+# gets smaller wheel rotations for finer control of wheel
+def steeringWheelDataFine(data):
+    #Data to Ints UwU
+    return float(binascii.hexlify(data[:2]))
+
