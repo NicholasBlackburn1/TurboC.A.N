@@ -3,6 +3,7 @@ testing canbus ids to see if it works
 """
 import binascii
 from builtins import print
+
 from cmath import sqrt
 from datetime import datetime
 import os
@@ -11,7 +12,7 @@ import can
 import logging
 from configparser import ConfigParser
 import time 
-import matplotlib.pyplot as plt
+
 import numpy
 import threading
 
@@ -20,16 +21,9 @@ from src.drivetrain.drivetrain import gasPeddleDataGeneral, steeringWheelDataFin
 logging.basicConfig(filename="logs/"+datetime.now().strftime(
         "%Y_%m_%d-%I_%M_%S_%p_%s")+".log", level=logging.DEBUG)
 
-def update_line(hl, new_data):
-    hl.set_xdata(numpy.append(hl.get_xdata(), new_data))
-    hl.set_ydata(numpy.append(hl.get_ydata(), new_data))
-    plt.draw()
-
 
 #check system name, in linux will print 'posix' and in windows will print 'nt'
-print(os.name)
-fig, ax = plt.subplots()
-ax.set(xlabel='Rpms i think', ylabel='Active',title='Car Engine Data')
+print("UwU Starting Data caputrue")
 
 logging.debug("CanBus Testing starting...")
 
@@ -42,30 +36,35 @@ for msg in can0:
     id = int(msg.arbitration_id)
     data = (binascii.hexlify(msg.data))
     
-    '''
+    
     # Steering Wheel Id 
     if(id == 2):
-        logging.warn("getting Data from Wheel")
-        print(data[:2])
-        print(data[2:4])
-        print('SteringWeel FIne data'+ str(steeringWheelDataFine(data)))
-        print("Steering Wheel data General:"+" "+str(steeringWheelDataGeneral(data)))
+       logging.warn("getting Data from Wheel")
+       logging.info(data[:2])
+       logging.info(data[2:4])
+       logging.info('SteringWeel FIne data'+ str(steeringWheelDataFine(data)))
+       logging.info("Steering Wheel data General:"+" "+str(steeringWheelDataGeneral(data)))
         
     
 
     if(id == 1041):
-       print(data)
-       print("gas peddle Data"+"  "+str(gasPeddleDataGeneral(data)))
-    '''
+      logging.info(data)
+      logging.info("gas peddle Data"+"  "+str(gasPeddleDataGeneral(data)))
+    
     #logging.debug(str(id) +" "+ str(data))
     if(id == 1040):
         
+       logging.info(data)
+       logging.info("data 1byte set:"+str(data[1]))
+       logging.info("data 2byte is gas peddle General Data:"+str(data[2]))
+       logging.info("data 3byte is gas peddle Increment Fine data:"+ str(data[3]))
+       logging.info("data 4byte set:"+str(data[4]))
+       logging.info("data 5byte set:"+str(data[5]))
+       logging.info("data 6byte set:"+str(data[6]))
+       logging.info("data 7byte set:"+str(data[7]))
+       logging.info("data 8byte set:"+str(data[8]))
+
+    print(str(id)+ " "+str(data))
+
+    if(id == 1281):
         print(data)
-        print("data 1byte set:"+str(data[1]))
-        print("data 2byte is gas peddle General Data:"+str(data[2]))
-        print("data 3byte is gas peddle Increment Fine data:"+ str(data[3]))
-        #print("data 7byte set:"+str(data[7]))
-        #print(data[:2])
-        #logging.info(str(id) +" "+str(data))
-
-
