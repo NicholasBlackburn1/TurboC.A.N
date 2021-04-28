@@ -23,14 +23,18 @@ def update_line(hl, new_data):
 
 
 # gets data from Steering System and retunds the rounding info
-def steeringWheelData(id,data):
+def steeringWheelDataGeneral(id,data):
     #Data to Ints UwU
-    return (int(binascii.hexlify(data[:2]),16)+ int(binascii.hexlify(data[2:4]),16)*255)
+    return float(binascii.hexlify(data[2:4]))
+
+def steeringWheelDataFine(id,data):
+    #Data to Ints UwU
+    return float(binascii.hexlify(data[:2]))
 
 
 def gassPeddleData(id,data):
      #Data to Ints UwU
-    pos =int(binascii.hexlify(data[6:8]),16)/255
+    pos =float(binascii.hexlify(data[6:8]))*255/25
     return pos
 
 #check system name, in linux will print 'posix' and in windows will print 'nt'
@@ -46,11 +50,15 @@ for msg in can0:
     id = int(msg.arbitration_id)
     data = (binascii.hexlify(msg.data))
     
- 
-        
+    if(id == 2):
+        print(data[:2])
+        print(data[2:4])
+        print('SteringWeel FIne data'+ str(steeringWheelDataFine(id,data)))
+        print("Steering Wheel data General:"+" "+str(steeringWheelDataGeneral(id,data)))
+
+    '''     
     if(id == 1041):
-    
-      
+       print("rounded data:" +str(round(gassPeddleData(id,data))))
        print("gas peddle Data"+"  "+str(gassPeddleData(id,data)))
-    
+    '''
         
