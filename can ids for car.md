@@ -5,9 +5,11 @@
 
 **P.s higher the C.A.N Id the More Critical the Device is**
 
-**UnKnown Kan ids 1537 of Interest**
+**UnKnown Kan ids 1537 and  of Interest**
 
-## Gas Peddal (counts in hexadecimal changes b2 (pos))
+<li> 1041 seems to be linked to accelerator to but need to look into it more 
+
+## Um Unknown(counts in hexadecimal changes b2 (pos))
 #### B1 seems static so i does not seem to change when car is running
 #### B2 seems to Stay static to maby a buffer bit before real data
 #### B3 seems to be I dont know what yet
@@ -15,7 +17,7 @@
 
  ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      |
 | ------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ------------- |
-| 0x1041   | 04   | ff   | 3f-fb  | 00-fc   | 00   | 00   | 00   | C0   | gas peddle|
+| 0x1041   | 04   | ff   | 3f-fb  | 00-fc   | 00   | 00   | 00   | C0   | Unknown|
 
 
 
@@ -27,7 +29,7 @@ ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      
 | 0x02   | 0e-fe   | 00-f1   | 00-ee  | 00   | 00   | 00   | 00   | 01   | Wheel getting turned)|
 
 
-## Rpm Data I think  ( counts in hexaDesimal)
+## GasPeddle I think  ( counts in hexaDesimal)
 #### B1 Maby small rpm count
 #### B2 Is Peddle Pos Count General
 #### B3 Is Peddle Pos Count Finer
