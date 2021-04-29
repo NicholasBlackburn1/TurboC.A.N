@@ -67,6 +67,3 @@ for msg in can0:
 
  
     
-
-    if(id == 1042):
-        print(data)
