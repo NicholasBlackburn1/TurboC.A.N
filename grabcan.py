@@ -17,6 +17,7 @@ import numpy
 import threading
 
 from src.drivetrain.drivetrain import gasPeddleDataGeneral, steeringWheelDataFine, steeringWheelDataGeneral
+from src.utils.datafile import createDataFile
 
 name = input("Please enter Driving Tracking log name")
 logging.basicConfig(filename="logs/"+str(name)+datetime.now().strftime(
@@ -45,14 +46,16 @@ for msg in can0:
        logging.info(data[2:4])
        logging.info('SteringWeel FIne data'+ str(steeringWheelDataFine(data)))
        logging.info("Steering Wheel data General:"+" "+str(steeringWheelDataGeneral(data)))
-        
+      
+      # This Writes The Steering Data to the File Named Based on can ids Function
+       createDataFile("Steering",steeringWheelDataGeneral(data),steeringWheelDataFine(data),"Steering")
     
 
     if(id == 1041):
       logging.info(data)
       logging.info("gas peddle Data"+"  "+str(gasPeddleDataGeneral(data)))
     
-    #logging.debug(str(id) +" "+ str(data))
+    # Gas Peddle Id
     if(id == 1040):
         
       
@@ -64,6 +67,12 @@ for msg in can0:
        logging.info("data 6byte set:"+str(data[6]))
        logging.info("data 7byte set:"+str(data[7]))
        logging.info("data 8byte set:"+str(data[8]))
+
+      # This Writes The Spesified Data to the File Named Based on can ids Function
+       createDataFile("Gas_Peddle",data[2],data[3],"Gas_Peddle")
+    
+
+      
 
  
     
