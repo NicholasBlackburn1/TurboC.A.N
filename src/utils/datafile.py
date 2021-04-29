@@ -17,8 +17,11 @@ file = None
 This is for creating iterating Data from car into A format for exel / Graphing Easly
 ''' 
 def createDataFile(source,geneal,finer,i):
-    predata = {'Source':str(source),'General_Pos': float(geneal), 'Finer_Pos': float(finer)}
-    data.at[i,:] = predata
+
+    with open('protagonist.csv', 'w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(["source", "general", "finer"])
+        writer.writerow([i,source, geneal, finer])
 
 
 '''

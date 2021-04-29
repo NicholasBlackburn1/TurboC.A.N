@@ -40,14 +40,10 @@ for msg in can0:
     if(id == 2):
       
        logging.warn("getting Data from Wheel")
-       logging.info(data[:2])
-       logging.info(data[2:4])
        logging.info('SteringWeel FIne data'+ str(steeringWheelDataFine(data)))
        logging.info("Steering Wheel data General:"+" "+str(steeringWheelDataGeneral(data)))
-      
-      # This Writes The Steering Data to the File Named Based on can ids Function
-       createDataFile("Steering",steeringWheelDataGeneral(data),steeringWheelDataFine(data), steeringIndex)
-       writeFile("steering")
+      createDataFile("Steering",steeringWheelDataGeneral(data),steeringWheelDataFine(data),steeringIndex)
+     
        steeringIndex+=1
 
     
@@ -62,9 +58,7 @@ for msg in can0:
        logging.info("data 7byte set:"+str(data[7]))
        logging.info("data 8byte set:"+str(data[8]))
 
-      # This Writes The Spesified Data to the File Named Based on can ids Function
-       createDataFile("Gas_Peddle",data[2],data[3],GasPeddleIndex)
-       writeFile("gasPeddle")
+      
        GasPeddleIndex+=1
     
 
