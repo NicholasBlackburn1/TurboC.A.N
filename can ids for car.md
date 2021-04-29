@@ -9,6 +9,7 @@
 
 <li> 1041 seems to be linked to accelerator to but need to look into it more 
 
+
 ## Um Unknown(counts in hexadecimal changes b2 (pos))
 #### B1 seems static so i does not seem to change when car is running
 #### B2 seems to Stay static to maby a buffer bit before real data
