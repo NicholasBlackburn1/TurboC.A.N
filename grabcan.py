@@ -47,7 +47,9 @@ for msg in can0:
       
       # This Writes The Steering Data to the File Named Based on can ids Function
        createDataFile("Steering",steeringWheelDataGeneral(data),steeringWheelDataFine(data), steeringIndex)
+       writeFile("steering")
        steeringIndex+=1
+
     
     # Gas Peddle Id
     if(id == 1040):
@@ -59,9 +61,10 @@ for msg in can0:
        logging.info("data 6byte set:"+str(data[6]))
        logging.info("data 7byte set:"+str(data[7]))
        logging.info("data 8byte set:"+str(data[8]))
-       
+
       # This Writes The Spesified Data to the File Named Based on can ids Function
        createDataFile("Gas_Peddle",data[2],data[3],GasPeddleIndex)
+       writeFile("gasPeddle")
        GasPeddleIndex+=1
     
 
