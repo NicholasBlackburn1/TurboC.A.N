@@ -14,7 +14,13 @@ file = None
 '''
 This is for creating iterating Data from car into A format for exel / Graphing Easly
 ''' 
-def createDataFile(source,geneal,finer,filename):
+def createDataFile(source,geneal,finer,i):
     predata = {'Source':str(source),'General_Pos': float(geneal), 'Finer_Pos': float(finer)}
-    data.at[:,:,:] = predata
+    data.at[i,:] = predata
+
+
+'''
+Writes Data to The csv File
+'''
+def writeFile(filename):
     data.to_csv('collectedData/'+str(filename)+'.csv', index=False)
