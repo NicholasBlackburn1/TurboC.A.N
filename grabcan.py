@@ -19,15 +19,12 @@ import threading
 from src.drivetrain.drivetrain import gasPeddleDataGeneral, steeringWheelDataFine, steeringWheelDataGeneral
 from src.utils.datafile import createDataFile
 
-name = input("Please enter Driving Tracking log name")
-logging.basicConfig(filename="logs/"+str(name)+datetime.now().strftime(
+logging.basicConfig(filename="logs/"+datetime.now().strftime(
         "%Y_%m_%d-%I_%M_%S_%p_%s")+".log", level=logging.DEBUG)
 
 
 #check system name, in linux will print 'posix' and in windows will print 'nt'
 print("UwU Starting Data caputrue")
-
-logging.debug("CanBus Testing starting...")
 
 logging.debug("CanBus Starting can network...")
 #while True:

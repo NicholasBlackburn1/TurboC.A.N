@@ -5,7 +5,7 @@
 
 **P.s higher the C.A.N Id the More Critical the Device is**
 
-**UnKnown Kan ids 1040, 1537 of Interest**
+**UnKnown Kan ids 1537 of Interest**
 
 ## Gas Peddal (counts in hexadecimal changes b2 (pos))
 #### B1 seems static so i does not seem to change when car is running
