@@ -13,7 +13,7 @@ import logging
 from configparser import ConfigParser
 import time 
 from src.drivetrain.drivetrain import gasPeddleDataGeneral, steeringWheelDataFine, steeringWheelDataGeneral
-from src.utils.datafile import createDataFile,writeFile
+from src.utils.datafile import createDataFile
 
 logging.basicConfig(filename="logs/"+datetime.now().strftime(
         "%Y_%m_%d-%I_%M_%S_%p_%s")+".log", level=logging.DEBUG)
@@ -42,7 +42,7 @@ for msg in can0:
        logging.warn("getting Data from Wheel")
        logging.info('SteringWeel FIne data'+ str(steeringWheelDataFine(data)))
        logging.info("Steering Wheel data General:"+" "+str(steeringWheelDataGeneral(data)))
-      createDataFile("Steering",steeringWheelDataGeneral(data),steeringWheelDataFine(data),steeringIndex)
+       createDataFile("Steering",steeringWheelDataGeneral(data),steeringWheelDataFine(data),filename= "UwUWheel.csv",i=steeringIndex)
      
        steeringIndex+=1
 
