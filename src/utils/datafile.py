@@ -18,6 +18,6 @@ This is for creating iterating Data from car into A format for exel / Graphing E
 def createDataFile(source,geneal,finer,filename,i):
     predata = {'Source':str(source),'General_Pos': float(geneal), 'Finer_Pos': float(finer)}
     data.at[i,:] = predata
-    data.to_csv(filename, chunksize=10000,mode='a')
+    data.to_csv('collectedData/'+filename, chunksize=10000,mode='a')
    
 
