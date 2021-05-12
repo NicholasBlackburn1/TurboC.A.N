@@ -5,7 +5,7 @@
 
 **P.s higher the C.A.N Id the More Critical the Device is**
 
-**UnKnown Kan ids 1537, 1056. 1300, 1058, 1537, 1281 and  of Interest**
+**UnKnown Kan ids  1056, 117 1058,  1281 and  of Interest**
 
 <li> 1041 seems to be linked to accelerator to but need to look into it more 
 
@@ -41,7 +41,7 @@ ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      
 #### B8 Seems to See if Peddle is Gas Pressed or released
 ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      |
 | ------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ------------- |
-| 0x1040  | 00-ef   | 00-ef  | 00-ff  | 13-14 | 00   | 00-ff   | 00-0b   | c0-00   | Enging data for rpm i think)|
+| 0x1040  | 00-ef   | 00-ef  | 00-ff  | 13-14 | 00   | 00-ff   | 00-0b   | c0-00   | Gas pos i think)|
 
 
     
@@ -49,4 +49,16 @@ ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      
 ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      |
 | ------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ------------- |
 | 0x1300 | 00   | 00    |  00 | 00  | 00   | 00   | 00   | 00   | Braking / abs)|
+
+
+ 
+## Might be Engin rpm
+#### B4 seems to be Throttle body pos general
+#### B5 seems to be Throttle body pos finer or User added pos
+### B6, B7, B8 seem to be Filler Bytes`
+
+ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      |
+| ------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ------------- |
+| 0x1537 | 08   | d3    |  00 | 13-ff  | 00   | 00   | 00   | 00   | engine throttle flap pos)|
+
 

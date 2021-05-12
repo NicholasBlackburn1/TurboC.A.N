@@ -66,9 +66,19 @@ for msg in can0:
     createDataFileid("Can ids",id,data,filename= "UwUids.csv",i=steeringIndex)
     steeringIndex +=1
     """
-    if(id == 1300):
-      print ("Can Data from 1300"+ "  "+ "data" +str(data))
     
+    # breaks i think
+    #if(id == 1300):
+      #print ("Can Data from 1300"+ "  "+ "data" +str(data))
+    
+    #if(id == 117):
+      # print("C.A.N BUS 117"+ "  "+ "Data:"+str(data))
 
- 
+
+    #if(id == 1537):
+      #print("C.A.N BUS 1537"+ "  "+ "Data:"+str(data))
+
+    #if(id == 1281):
+       #print("C.A.N BUS 1281"+ "  "+ "Data:"+str(data))
+
     
