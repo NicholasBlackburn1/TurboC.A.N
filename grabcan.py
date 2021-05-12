@@ -13,7 +13,7 @@ import logging
 from configparser import ConfigParser
 import time 
 from src.drivetrain.drivetrain import gasPeddleDataGeneral, steeringWheelDataFine, steeringWheelDataGeneral
-from src.utils.datafile import createDataFile
+from src.utils.datafile import createDataFile, createDataFileid
 
 logging.basicConfig(filename="logs/"+datetime.now().strftime(
         "%Y_%m_%d-%I_%M_%S_%p_%s")+".log", level=logging.DEBUG)
@@ -35,18 +35,18 @@ for msg in can0:
     id = int(msg.arbitration_id)
     data = (binascii.hexlify(msg.data))
     
-    
+    """
     # Steering Wheel Id 
     if(id == 2):
       
        logging.warn("getting Data from Wheel")
        logging.info('SteringWeel FIne data'+ str(steeringWheelDataFine(data)))
        logging.info("Steering Wheel data General:"+" "+str(steeringWheelDataGeneral(data)))
-       createDataFile("Steering",steeringWheelDataGeneral(data),steeringWheelDataFine(data),filename= "UwUWheel.csv",i=steeringIndex)
+       #createDataFile("Steering",steeringWheelDataGeneral(data),steeringWheelDataFine(data),filename= "UwUWheel.csv",i=steeringIndex)
      
        steeringIndex+=1
-
-    
+    """
+    """
     # Gas Peddle Id
     if(id == 1040):
        logging.info("data 1byte set:"+str(data[1]))
@@ -60,9 +60,15 @@ for msg in can0:
 
       
        GasPeddleIndex+=1
+    """
+   #print(id)
+    """
+    createDataFileid("Can ids",id,data,filename= "UwUids.csv",i=steeringIndex)
+    steeringIndex +=1
+    """
+    if(id == 1300):
+      print ("Can Data from 1300"+ "  "+ "data" +str(data))
     
-
-      
 
  
     

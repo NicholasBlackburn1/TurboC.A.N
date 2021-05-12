@@ -21,3 +21,10 @@ def createDataFile(source,geneal,finer,filename,i):
     data.to_csv('collectedData/'+filename, chunksize=10000,mode='a')
    
 
+
+def createDataFileid(source,geneal,finer,filename,i):
+    predata = {'Source':str(source),'CanId': int(geneal), 'Data': str(finer)}
+    data.at[i,:] = predata
+    data.to_csv('collectedData/'+filename, chunksize=10000,mode='a')
+   
+
