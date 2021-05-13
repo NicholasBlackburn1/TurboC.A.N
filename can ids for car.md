@@ -5,7 +5,7 @@
 
 **P.s higher the C.A.N Id the More Critical the Device is**
 
-**UnKnown Kan ids  1056, 117 1058,  1281 and  of Interest**
+**UnKnown Kan ids  1056, 117 1058,  1281 and 117 of Interest**
 
 <li> 1041 seems to be linked to accelerator to but need to look into it more 
 
