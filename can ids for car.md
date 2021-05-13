@@ -59,6 +59,6 @@ ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      
 
 ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      |
 | ------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ------------- |
-| 0x1537 | 08   | d3    |  00 | 13-ff  | 00   | 00   | 00   | 00   | engine throttle flap pos)|
+| 0x1537 | 08   | d3    |  00 | 13-ff  | 00-ff   | 00   | 00   | 00   | engine throttle flap pos)|
 
 
