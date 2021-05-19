@@ -12,8 +12,9 @@ import can
 import logging
 from configparser import ConfigParser
 import time 
-from src.drivetrain.drivetrain import gasPeddleDataGeneral, steeringWheelDataFine, steeringWheelDataGeneral
+from src.drivetrain.drivetrain import gasPeddleDataGeneral, steeringWheelDataFine, steeringWheelDataGeneral,inPark, breakPeddleData
 from src.utils.datafile import createDataFile, createDataFileid
+from gpiozero import LED
 
 logging.basicConfig(filename="logs/"+datetime.now().strftime(
         "%Y_%m_%d-%I_%M_%S_%p_%s")+".log", level=logging.DEBUG)
@@ -29,56 +30,105 @@ logging.debug("CanBus Starting can network...")
 can0 = can.interface.Bus(channel = 'can0', bustype = 'socketcan_ctypes')
 steeringIndex = 0
 GasPeddleIndex = 0
+
+inGearLed = LED(17)
+
 for msg in can0:
    
-    # This is the vehical d+ata and ids from canbus
-    id = int(msg.arbitration_id)
-    data = (binascii.hexlify(msg.data))
+  # This is the vehical d+ata and ids from canbus
+  id = int(msg.arbitration_id)
+  data = (binascii.hexlify(msg.data))
+  
+  """
+  # Steering Wheel Id 
+  if(id == 2):
     
-    """
-    # Steering Wheel Id 
-    if(id == 2):
-      
-       logging.warn("getting Data from Wheel")
-       logging.info('SteringWeel FIne data'+ str(steeringWheelDataFine(data)))
-       logging.info("Steering Wheel data General:"+" "+str(steeringWheelDataGeneral(data)))
-       #createDataFile("Steering",steeringWheelDataGeneral(data),steeringWheelDataFine(data),filename= "UwUWheel.csv",i=steeringIndex)
-     
-       steeringIndex+=1
-    """
-    """
-    # Gas Peddle Id
-    if(id == 1040):
-       logging.info("data 1byte set:"+str(data[1]))
-       logging.info("data 2byte is gas peddle General Data:"+str(data[2]))
-       logging.info("data 3byte is gas peddle Increment Fine data:"+ str(data[3]))
-       logging.info("data 4byte set:"+str(data[4]))
-       logging.info("data 5byte set:"+str(data[5]))
-       logging.info("data 6byte set:"+str(data[6]))
-       logging.info("data 7byte set:"+str(data[7]))
-       logging.info("data 8byte set:"+str(data[8]))
-
-      
-       GasPeddleIndex+=1
-    """
-   #print(id)
-    """
-    createDataFileid("Can ids",id,data,filename= "UwUids.csv",i=steeringIndex)
-    steeringIndex +=1
-    """
+      logging.warn("getting Data from Wheel")
+      logging.info('SteringWeel FIne data'+ str(steeringWheelDataFine(data)))
+      logging.info("Steering Wheel data General:"+" "+str(steeringWheelDataGeneral(data)))
+      #createDataFile("Steering",steeringWheelDataGeneral(data),steeringWheelDataFine(data),filename= "UwUWheel.csv",i=steeringIndex)
     
-    # breaks i think
-    #if(id == 1300):
-      #print ("Can Data from 1300"+ "  "+ "data" +str(data))
-    
-    #if(id == 117):
-      # print("C.A.N BUS 117"+ "  "+ "Data:"+str(data))
-
-
-    #if(id == 1537):
-      #print("C.A.N BUS 1537"+ "  "+ "Data:"+str(data))
-
-    #if(id == 1281):
-       #print("C.A.N BUS 1281"+ "  "+ "Data:"+str(data))
+      steeringIndex+=1
+  """
+  """
+  # Gas Peddle Id
+  if(id == 1040):
+      logging.info("data 1byte set:"+str(data[1]))
+      logging.info("data 2byte is gas peddle General Data:"+str(data[2]))
+      logging.info("data 3byte is gas peddle Increment Fine data:"+ str(data[3]))
+      logging.info("data 4byte set:"+str(data[4]))
+      logging.info("data 5byte set:"+str(data[5]))
+      logging.info("data 6byte set:"+str(data[6]))
+      logging.info("data 7byte set:"+str(data[7]))
+      logging.info("data 8byte set:"+str(data[8]))
 
     
+      GasPeddleIndex+=1
+  """
+  #print(id)
+  """
+  createDataFileid("Can ids",id,data,filename= "UwUids.csv",i=steeringIndex)
+  steeringIndex +=1
+  """
+  
+  # breaks i think
+  #if(id == 1300):
+    #print ("Can Data from 1300"+ "  "+ "data" +str(data))
+  
+  #if(id == 117):
+    # print("C.A.N BUS 117"+ "  "+ "Data:"+str(data))
+
+
+  #if(id == 1537):
+    #print("C.A.N BUS 1537"+ "  "+ "Data:"+str(data))
+
+  #if(id == 1281):
+      #print("C.A.N BUS 1281"+ "  "+ "Data:"+str(data))
+
+  """
+  # Finds all can ids under 1000
+  if(id <= 1000):
+    print("ID:"+" "+ str(id)+" "+"DATA:"+" "+str(data)+"\n")
+    logging.warn("ID:"+" "+ str(id)+" "+"DATA:"+" "+str(data)+"\n")
+  """
+
+  #if(id == 112):
+   #   print("ID:"+" "+ str(id)+" "+"DATA:"+" "+str(data)+"\n")
+   
+  #if(id == 117):
+    #print("ID:"+" "+ str(id)+" "+"DATA:"+" "+str(data)+"\n")
+
+
+  #if(id == 1299):
+    #print("ID:"+" "+ str(id)+" "+"DATA:"+" "+str(data)+"\n")
+    
+  #if(id == 1298):
+    #print("ID:"+" "+ str(id)+" "+"DATA:"+" "+str(data)+"\n")
+  
+  #if(id == 1300):
+    #print("ID:"+" "+ str(id)+" "+"DATA:"+" "+str(data)+"\n")
+
+  #if(id == 1297):
+   # print("ID:"+" "+ str(id)+" "+"DATA:"+" "+str(data)+"\n")
+
+  #if(id == 1281):
+    #print("ID:"+" "+ str(id)+" "+"DATA:"+" "+str(data)+"\n")
+  
+  #if(id == 1398):
+    #print("ID:"+" "+ str(id)+" "+"DATA:"+" "+str(data)+"\n")
+  
+  #if(id ==1536):
+    #print("ID:"+" "+ str(id)+" "+"DATA:"+" "+str(data)+"\n")
+
+  #if(id ==1537):
+    #print("ID:"+" "+ str(id)+" "+"DATA:"+" "+str(data)+"\n")
+  
+  #if(id ==1058):
+   #print("ID:"+" "+ str(id)+" "+"DATA:"+" "+str(data)+"\n")
+  
+
+  if(id == 1568):
+    inPark(data,inGearLed)
+
+  if(id == 1297):
+    print(breakPeddleData(data))

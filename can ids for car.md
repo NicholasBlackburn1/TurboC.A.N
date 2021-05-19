@@ -5,7 +5,7 @@
 
 **P.s higher the C.A.N Id the More Critical the Device is**
 
-**UnKnown Kan ids  1056, 117 1058,  1281 and 117 of Interest**
+**UnKnown Kan ids  1398, 1536, 1057,1058 of Interest**
 
 <li> 1041 seems to be linked to accelerator to but need to look into it more 
 
@@ -45,10 +45,12 @@ ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      
 
 
     
-## Might be brake peddle
+## Might be brake peddle/ Detects If in gear
+### B1 is break pressed or not Relay Click
+
 ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      |
 | ------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ------------- |
-| 0x1300 | 00   | 00    |  00 | 00  | 00   | 00   | 00   | 00   | Braking / abs)|
+| 0x1300 | 00-08   | 00 |  fe-76 | 00  | 0c-08   | 80   | e0-ff   | 00-ff   | Something)|
 
 
  
@@ -60,5 +62,41 @@ ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      
 ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      |
 | ------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ------------- |
 | 0x1537 | 08   | d3    |  00 | 13-ff  | 00-ff   | 00   | 00   | 00   | engine throttle flap pos)|
+
+
+## Unknown Because when parked shows no data
+ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      |
+| ------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ------------- |
+| 0x1299 | 00   |00    |  00 | 00  | 00   | 00   | 00   | 00   | Unknown)|
+
+
+## Break / Something Is Unknown
+#### B5 seems to Detect only if the break is pressed 
+ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      |
+| ------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ------------- |
+| 0x1298 | 00   |00    |  00 | 00  | 80-90   | 00-ff   | 00-ff   | 00-ff   | Unknown)|
+
+
+## Ok Actually Break Pos or Pressure
+#### B5 seems to Detect only if the break pressure/pos
+ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      |
+| ------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ------------- |
+| 0x1297 | ff   |ff    |  00 | 00  | 00-80   | ff   | 00   |00   | Break Pressure /Pos)|
+
+
+
+## Something
+#### B6 seems is incrementing
+ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      |
+| ------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ------------- |
+| 0x1281 | 00   |00    |  00 | ff  | 00   | 00-99   | 00   |00   | Something)|
+
+
+
+## Detects If Car is in Park or In of Gear
+#### B3 Byte that shows if Car is in park or not
+ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      |
+| ------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ------------- |
+| 0x1568 | 00   |00    |  05-01 | 00  | 00   | 00   | 00   |00   |  Check if car is in Park or not)|
 
 
