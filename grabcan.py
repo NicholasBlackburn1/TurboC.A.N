@@ -8,12 +8,13 @@ from cmath import sqrt
 from datetime import datetime
 import os
 import struct
+from avro import datafile
 import can
 import logging
 from configparser import ConfigParser
 import time 
-from src.drivetrain.drivetrain import gasPeddleDataGeneral, steeringWheelDataFine, steeringWheelDataGeneral,inPark, breakPeddleData
-from src.utils.datafile import createDataFile, createDataFileid
+from src.drivetrain.drivetrain import gasPeddleData, gasPeddleDataGeneral, steeringWheelDataFine, steeringWheelDataGeneral,inPark, breakPeddleData
+import src.utils.datafileUwU as uwu
 
 
 logging.basicConfig(filename="logs/"+datetime.now().strftime(
@@ -31,7 +32,7 @@ can0 = can.interface.Bus(channel = 'can0', bustype = 'socketcan_ctypes')
 steeringIndex = 0
 GasPeddleIndex = 0
 
-
+i = 0
 
 for msg in can0:
    
@@ -52,10 +53,9 @@ for msg in can0:
   
   # Gas Peddle Id
   if(id == 1040):
- 
-      logging.info("gas peddle General Data:"+str(data[2]))
-      logging.info("gas peddle Increment Fine data:"+ str(data[3]))
-
+      uwu.data(i,data[2],(data[3]))
+      i+=1
+   
     
     
   # breaks i think
@@ -64,8 +64,8 @@ for msg in can0:
   
   #if(id == 117):
     # print("C.A.N BUS 117"+ "  "+ "Data:"+str(data))
-
-
+#╰─± sudo ip link set can0 type can bitrate 500000               
+#╰─± sudo ip link set can0 up        
   #if(id == 1537):
     #print("C.A.N BUS 1537"+ "  "+ "Data:"+str(data))
 

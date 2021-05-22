@@ -19,12 +19,13 @@ def steeringWheelDataFine(data):
 #gets General Data From Stearing Wheel
 def gasPeddleDataGeneral(data):
      #Data to Ints UwU
-    pos =float(binascii.hexlify(data[2]))
+    pos =data[2]
     return pos
 
 def gasPeddleData(data):
      #Data to Ints UwU
-    pos =float(binascii.hexlify(data[3]))
+    print(data[3])
+    pos =data[3]
     return pos
 
 def inPark(data):
