@@ -53,7 +53,7 @@ for msg in can0:
   
   # Gas Peddle Id
   if(id == 1040):
-      uwu.data(i,data[2],(data[3]))
+      uwu.dumpGasData(i,data[2],(data[3]))
       i+=1
    
     
@@ -118,7 +118,8 @@ for msg in can0:
     inPark(data)
 
   if(id == 1297):
-    breakPeddleData(data)
+    uwu.dumpbreakData("break"+str(i),data[5])
+
 
   if(id == 1299):
     print(data)
