@@ -15,15 +15,12 @@ import pathlib
 import avro.schema
 from avro.datafile import DataFileReader, DataFileWriter
 from avro.io import DatumReader, DatumWriter
-
+gasschema = avro.schema.parse(open("/home/nicholas/Desktop/Car dev/schems/stearing.avsc", "rb").read())
+gaswriter = DataFileWriter(open(str("/home/nicholas/Desktop/Car dev/collectedData")+str("stearing")+".avro", "w+b"), DatumWriter(), gasschema)
 
 def dumpGasData(name, datafine, datagen):
-    schema = avro.schema.parse(open("/home/nicholas/Desktop/Car dev/schems/stearing.avsc", "rb").read())
-
-
-    writer = DataFileWriter(open(str("/home/nicholas/Desktop/Car dev/collectedData")+str("stearing")+".avro", "w+b"), DatumWriter(), schema)
-    writer.append({"name": name, "finerPos": datafine,"generalPos": datagen})
-    writer.close()
+   gaswriter.append({"name": name, "finerPos": datafine,"generalPos": datagen})
+   
   
     
 
@@ -45,6 +42,7 @@ def main():
         dumpGasData(name="gas"+str(i),datafine=i,datagen=i)
         i +=1 
         if i >= 100:
+            gaswriter.close()
             print("done with file")
             readavro()
             break
