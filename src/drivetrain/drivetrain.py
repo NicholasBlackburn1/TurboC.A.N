@@ -4,6 +4,7 @@ Drivetrain Data Grabbing
 
 
 import binascii
+import logging
 import gpiozero
 
 # gets data from Steering System and retunds the rounding info
@@ -26,19 +27,15 @@ def gasPeddleData(data):
     pos =float(binascii.hexlify(data[3]))
     return pos
 
-def inPark(data,led):
+def inPark(data):
     if(data[5] == 53):
-      led.on()
-    else:
-      led.off()
-
-
-
-def inGear(data,led):
-    if(data[5] == 53):
-      led.off()
-    else:
-      led.on()
+      #led.on()
+      logging.info("in park")
+   
 
 def breakPeddleData(data):
-    return binascii.hexlify(data[5])
+   
+    obj = int(binascii.hexlify(data[8:10]))
+    logging.info("Break Data" + str(obj))
+    return int(obj)
+    

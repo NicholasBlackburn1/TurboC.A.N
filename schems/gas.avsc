@@ -1,0 +1,8 @@
+{"namespace": "car.peddel.brake",
+ "type": "record",
+ "name": "brake",
+ "fields": [
+     {"name": "name", "type": "string"},
+     {"name": "finerPos",  "type": ["int", "null"]},
+     {"name": "generalPos", "type": ["int", "null"]}
+ ]}
