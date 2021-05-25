@@ -16,35 +16,51 @@ from avro.datafile import DataFileReader, DataFileWriter
 from avro.io import DatumReader, DatumWriter
 from time import sleep
 
-gasschema = avro.schema.parse(open("src/utils/gas.avsc", "rb").read())
+gasschema = avro.schema.parse(open("/home/nicholas/Desktop/cardev/src/utils/gas.avsc", "rb").read())
 gaswriter = DataFileWriter(open(str("collectedData/")+str("gas")+".avro", "w+b"), DatumWriter(), gasschema)
 
-breakschema = avro.schema.parse(open("src/utils/gas.avsc", "rb").read())
-breakwriter = DataFileWriter(open(str("collectedData/")+str("break")+".avro", "w+b"), DatumWriter(), breakschema)
+breakschema = avro.schema.parse(open("/home/nicholas/Desktop/cardev/src/utils/break.avsc", "rb").read())
+breakwriter = DataFileWriter(open(str("/home/nicholas/Desktop/cardev/collectedData/")+str("break")+".avro", "w+b"), DatumWriter(), breakschema)
+
+Stearingschema = avro.schema.parse(open("/home/nicholas/Desktop/cardev/src/utils/stearing.avsc", "rb").read())
+Stearingwriter = DataFileWriter(open(str("/home/nicholas/Desktop/cardev/collectedData/")+str("stearing")+".avro", "w+b"), DatumWriter(), Stearingschema)
 
 
-def dumpGasData(name, datafine, datagen):
-   gaswriter.append({"name": name, "finerPos": datafine,"generalPos": datagen})
-  
-def dumpbreakData(name, data):
-   breakwriter.append({"name": name, "Pos": data})
-  
 def readavrogas():
-    reader = DataFileReader(open(str("/home/nicholas/Desktop/")+str("gas")+".avro", "rb"), DatumReader())
+    reader = DataFileReader(open(str("/home/nicholas/Desktop/cardev/collectedData/")+str("gas")+".avro", "rb"), DatumReader())
     for gas in reader:
         print (gas)
     reader.close()
 
 def readavrobreak():
-    reader = DataFileReader(open(str("/home/nicholas/Desktop/")+str("break")+".avro", "rb"), DatumReader())
+    reader = DataFileReader(open(str("/home/nicholas/Desktop/cardev/collectedData/")+str("break")+".avro", "rb"), DatumReader())
     for gas in reader:
         print (gas)
     reader.close()
 
+def readavroStearing():
+    reader = DataFileReader(open(str("/home/nicholas/Desktop/cardev/collectedData/")+str("stearing")+".avro", "rb"), DatumReader())
+    for gas in reader:
+        print (gas)
+    reader.close()
+
+def dumpGasData(name, datafine, datagen):
+   gaswriter.append({"name": str(name), "finerPos": datafine,"generalPos": datagen})
+   #print({"name": str(name), "finerPos": datafine,"generalPos": datagen})
+
+def dumpbreakData(name, data):
+   breakwriter.append({"name": str(name), "Pos": data})
+   #print({"name": str(name), "Pos": data})
+
+
+  
+def dumpStearingData(name, datafine,datagen):
+   Stearingwriter.append({"name": str(name), "finerPos": datafine,"generalPos": datagen})
+   #print({"name": str(name), "finerPos": datafine,"generalPos": datagen})
 
 def gasdata(i, dataf,datag):
   
-    print("testing data")
+    print("gas data")
 
     
    
@@ -54,11 +70,12 @@ def gasdata(i, dataf,datag):
     
     
     print("i: "+str(i))
-    if i >= 2000:
-        gaswriter.close()
+    if i <= 2000:
+        #gaswriter.close()
         
-        print("done with file reading gas file\n")
-        readavrogas()
+        #print("done with file reading gas file\n")
+        #readavrogas()
+        pass
 
 
 
@@ -66,7 +83,7 @@ def gasdata(i, dataf,datag):
          
 def breakdata(data,i):
   
-    print("testing data")
+    print(" brake data")
 
     
    
@@ -76,12 +93,34 @@ def breakdata(data,i):
     
     
     print("i: "+str(i))
-    if i >= 2000:
+    if i <= 2000:
         breakwriter.close()
         
         print("done with file reading break file\n")
         readavrobreak()()
 
+       
+def stearingdata(dataf,datag,i):
+  
+    print("stearing data")
+
+    
+    print({"name": str(), "finerPos": dataf,"generalPos": datag})
+   # dumpStearingData(name=str("stearing"+str(i)),datafine=dataf, datagen= dataf)
+    
+  
+    
+    
+    print("i: "+str(i))
+    if i <= 2000:
+        #Stearingwriter.close()
+        
+        #print("done with file reading break file\n")
+        #readavroStearing()
+
+        pass
+    
+    
 
     
     

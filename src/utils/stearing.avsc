@@ -3,6 +3,6 @@
  "name": "Stearing",
  "fields": [
      {"name": "name", "type": "string"},
-     {"name": "finerPos",  "type": ["int", "null"]},
-     {"name": "generalPos", "type": ["int", "null"]}
+     {"name": "finerPos",  "type": "float"},
+     {"name": "generalPos", "type": "float"}
  ]}

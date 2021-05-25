@@ -1,5 +1,7 @@
 """ 
 testing canbus ids to see if it works
+#╰─± sudo ip link set can0 type can bitrate 500000               
+#╰─± sudo ip link set can0 up
 """
 import binascii
 from builtins import print
@@ -29,10 +31,11 @@ print("UwU Starting Data caputrue")
 logging.debug("CanBus Starting can network...")
 #while True:
 can0 = can.interface.Bus(channel = 'can0', bustype = 'socketcan_ctypes')
-steeringIndex = 0
-GasPeddleIndex = 0
 
 i = 0
+stearing = 0
+breakdex = 0
+gas = 0
 
 for msg in can0:
    
@@ -43,19 +46,45 @@ for msg in can0:
   
   # Steering Wheel Id 
   if(id == 2):
-    
-      logging.warn("getting Data from Wheel")
-      logging.info('SteringWeel FIne data'+ str(steeringWheelDataFine(data)))
-      logging.info("Steering Wheel data General:"+" "+str(steeringWheelDataGeneral(data)))
+    try:
+      logging.warn("getting Data from Wheel - > dumping it to the avro file")
       #createDataFile("Steering",steeringWheelDataGeneral(data),steeringWheelDataFine(data),filename= "UwUWheel.csv",i=steeringIndex)
+      #uwu.dumpStearingData(i,steeringWheelDataFine(data),steeringWheelDataGeneral(data))
+      uwu.dumpStearingData(name=str("stearing"+str(stearing)),datafine=steeringWheelDataFine(data),datagen=steeringWheelDataGeneral(data))
+    
+      stearing +=1
     
     
+      print("i: "+str(stearing))
+      if stearing == 3000:
+          uwu.Stearingwriter.close()
+          
+          print("done with file reading break file\n")
+          uwu.readavroStearing()
+    except:
+      print("done captureing Wheel data")
   
   # Gas Peddle Id
   if(id == 1040):
-      uwu.dumpGasData(i,data[2],(data[3]))
-      i+=1
-   
+    try:
+      logging.warn("getting Data from gas - > dumping it to the avro file")
+    #createDataFile("Steering",steeringWheelDataGeneral(data),steeringWheelDataFine(data),filename= "UwUWheel.csv",i=steeringIndex)
+    #uwu.dumpStearingData(i,steeringWheelDataFine(data),steeringWheelDataGeneral(data))
+      uwu.dumpGasData(name=str("gas"+str(gas)),datafine=data[2],datagen=data[3])
+  
+      gas +=1
+
+
+      print("i: "+str(gas))
+      if gas == 3000:
+          uwu.gaswriter.close()
+          
+          print("done with file reading break file \n")
+          print("gas data \n")
+          uwu.readavrogas()
+    except:
+      print("done capturing Gas")
+  
     
     
   # breaks i think
@@ -64,8 +93,7 @@ for msg in can0:
   
   #if(id == 117):
     # print("C.A.N BUS 117"+ "  "+ "Data:"+str(data))
-#╰─± sudo ip link set can0 type can bitrate 500000               
-#╰─± sudo ip link set can0 up        
+        
   #if(id == 1537):
     #print("C.A.N BUS 1537"+ "  "+ "Data:"+str(data))
 
@@ -118,8 +146,10 @@ for msg in can0:
     inPark(data)
 
   if(id == 1297):
-    uwu.dumpbreakData("break"+str(i),data[5])
-
+    #uwu.dumpbreakData(str("break"+str(i)),data[5])
+    #uwu.breakdata(data,breakdex)
+    breakdex +=1
 
   if(id == 1299):
-    print(data)
+    pass
+ 
