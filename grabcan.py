@@ -10,6 +10,7 @@ from cmath import sqrt
 from datetime import datetime
 import os
 import struct
+from xmlrpc.client import DateTime
 from avro import datafile
 import can
 import logging
@@ -19,7 +20,7 @@ from src.drivetrain.drivetrain import gasPeddleData, gasPeddleDataGeneral, steer
 import src.utils.datafileUwU as uwu
 
 
-logging.basicConfig(filename="logs/"+   v+".log", level=logging.DEBUG)
+logging.basicConfig(filename="logs/"+"s"+".log", level=logging.DEBUG)
 
 
 #check system name, in linux will print 'posix' and in windows will print 'nt'
@@ -32,31 +33,40 @@ logging.debug("CanBus Starting can network...")
 can0 = can.interface.Bus(channel = 'can0', bustype = 'socketcan_ctypes')
 
 timetorecordData = 3000
+
 i = 0
 stearing = 0
 breakdex = 0
 gas = 0
 
-def breakData(breakd):
-    try:
-        logging.warn("getting Data from break - > dumping it to the avro file")
-        uwu.dumpbreakData(name=str(breakd),data=breakPeddleData(data))
-    
-        breakd +=1
+# Captures Data from my cars canbus and addes to the files 
+for msg in can0:
+   
+  # This is the vehical d+ata and ids from canbus
+  id = int(msg.arbitration_id)
+  data = (binascii.hexlify(msg.data))
 
-
-        print("breakIndex: "+str(breakd))
-        if breakd == timetorecordData:
-            uwu.breakwriter.close()
+  
+  # Steering Wheel Id 
+  if(id == 2):
+      try:
+        logging.warn("getting Data from Wheel - > dumping it to the avro file")
+        uwu.dumpStearingData(name=str(stearing),datafine=steeringWheelDataFine(data),datagen=steeringWheelDataGeneral(data))
+      
+        stearing +=1
+      
+        if stearing < timetorecordData:
+          print("StearingIndex: "+str(stearing))
+        if stearing == timetorecordData:
+            uwu.Stearingwriter.close()
             
-            print("done with file reading break file \n")
-            print("break data \n")
-            logging.warn(str("Break Data")+str(uwu.readavrobreak()))
-    except:
-        print("done capturing break")
+            print("done with file reading break file\n")
+            logging.warn(str("Stearing Data")+str(uwu.readavroStearing()))
+      except:
+        print("done captureing Wheel data")
 
-# collects Data from gaspeddle poss
-def gasData(gas):
+  
+  if(id == 1040):
     try:
         logging.warn("getting Data from gas - > dumping it to the avro file")
         uwu.dumpGasData(name=str(gas),datafine=data[2],datagen=data[3])
@@ -64,8 +74,8 @@ def gasData(gas):
     
         gas +=1
 
-
-        print("gasIndex: "+str(gas))
+        if(gas < timetorecordData):
+          print("gasIndex: "+str(gas))
         if gas == timetorecordData:
             uwu.gaswriter.close()
             
@@ -76,53 +86,33 @@ def gasData(gas):
     except:
         print("done capturing Gas")
 
-# allows for Stearing Data colection UwU
-def stearingData(stearing):
-    try:
-        logging.warn("getting Data from Wheel - > dumping it to the avro file")
-        uwu.dumpStearingData(name=str(stearing),datafine=steeringWheelDataFine(data),datagen=steeringWheelDataGeneral(data))
-      
-        stearing +=1
-      
-      
-        print("StearingIndex: "+str(stearing))
-        if stearing == timetorecordData:
-            uwu.Stearingwriter.close()
-            
-            print("done with file reading break file\n")
-            logging.warn(str("Stearing Data")+str(uwu.readavroStearing()))
-    except:
-        print("done captureing Wheel data")
-
-# Captures Data from my cars canbus and addes to the files 
-def dataCature(stearing,breakdex):
-    
-  # Steering Wheel Id 
-  if(id == 2):
-    stearingData(stearing)
-  
-  # Gas Peddle Id
-  if(id == 1040):
-   gasData(gas)
 
   
   if(id == 1568):
     inPark(data)
 
   if(id == 1297):
-    breakData(breakdex)
-    breakdex +=1
+      try:
+            logging.warn("getting Data from break - > dumping it to the avro file")
+            uwu.dumpbreakData(name=str(breakdex),data=breakPeddleData(data))
+        
+            breakdex+=1
+
+            if(breakdex < timetorecordData):
+              print("breakIndex: "+str(breakdex))
+            if breakdex == timetorecordData:
+                uwu.breakwriter.close()
+                
+                print("done with file reading break file \n")
+                print("break data \n")
+                logging.warn(str("Break Data")+str(uwu.readavrobreak()))
+      except:
+            print("done capturing break")
+
+
 
   if(id == 1299):
     pass
- 
 
-for msg in can0:
-   
-  # This is the vehical d+ata and ids from canbus
-  id = int(msg.arbitration_id)
-  data = (binascii.hexlify(msg.data))
-  
-  
  
 
