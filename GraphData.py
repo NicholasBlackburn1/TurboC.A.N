@@ -15,8 +15,14 @@ from avro.datafile import DataFileReader, DataFileWriter
 import logging as logger
 
 
+
+
+Location = str("Tyquando_2021-05-26/")
+StorePath = str("/home/nicholas/Desktop/cardev/collectedData/"+Location)
+
+
 def readavrogas():
-    reader = DataFileReader(open("/home/nicholas/Desktop/cardev/collectedData/Tyquando_2021-05-26/"+str("gas")+".avro", "rb"), DatumReader())
+    reader = DataFileReader(open(StorePath+str("gas")+".avro", "rb"), DatumReader())
     index = []
     finedata = []
     generaldata = []
@@ -34,7 +40,7 @@ def readavrogas():
 
         
 def readavrobreak():
-    reader = DataFileReader(open("/home/nicholas/Desktop/cardev/collectedData/Tyquando_2021-05-26/"+str("break")+".avro", "rb"), DatumReader())
+    reader = DataFileReader(open(StorePath+str("break")+".avro", "rb"), DatumReader())
     index = []
     pos = []
     for gas in reader:
@@ -48,7 +54,7 @@ def readavrobreak():
     return index,pos
 
 def readavroStearing():
-    reader = DataFileReader(open("/home/nicholas/Desktop/cardev/collectedData/Tyquando_2021-05-26/"+"stearing"+".avro", "rb"), DatumReader())
+    reader = DataFileReader(open(StorePath+"stearing"+".avro", "rb"), DatumReader())
     index = []
     finedata = []
     generaldata = []
