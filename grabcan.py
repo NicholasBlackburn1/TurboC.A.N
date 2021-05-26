@@ -42,7 +42,7 @@ breakdex = 0
 gas = 0
 
 
-inGear = False
+inGear = None
 # Captures Data from my cars canbus and addes to the files 
 for msg in can0:
    
@@ -52,6 +52,7 @@ for msg in can0:
 
   if(id == 1568):
     inGear = inPark(data) 
+    print(data)
     print("Is car in park?"+ str(inGear))
 
   # Steering Wheel Id 
@@ -63,14 +64,17 @@ for msg in can0:
         stearing +=1
       
         if stearing < timetorecordData:
-          print("StearingIndex: "+str(stearing))
+          #print("StearingIndex: "+str(stearing))
+           pass
         if inGear:
+            
             uwu.Stearingwriter.close()
             
             print("done with file reading break file\n")
             logging.warn(str("Stearing Data")+str(uwu.readavroStearing()))
       except:
         print("done captureing Wheel data")
+        uwu.Stearingwriter.close()
 
   
   if(id == 1040):
@@ -82,16 +86,18 @@ for msg in can0:
         gas +=1
 
         if(gas < timetorecordData):
-          print("gasIndex: "+str(gas))
+          #print("gasIndex: "+str(gas))
+          pass
         if inGear:
             uwu.gaswriter.close()
             
             print("done with file reading break file \n")
             print("gas data \n")
             uwu.readavrogas()
-            logging.warn(str("Gas Data")+str(uwu.readavrogas()()))
+            print(str("Gas Data")+str(uwu.readavrogas()))
     except:
         print("done capturing Gas")
+        uwu.gaswriter.flush()
 
 
   
@@ -105,8 +111,9 @@ for msg in can0:
             breakdex+=1
 
             if(breakdex < timetorecordData):
-              print("breakIndex: "+str(breakdex))
-            if breakdex == timetorecordData:
+              #print("breakIndex: "+str(breakdex))
+              pass
+            if inGear:
                 uwu.breakwriter.close()
                 
                 print("done with file reading break file \n")
@@ -114,6 +121,8 @@ for msg in can0:
                 logging.warn(str("Break Data")+str(uwu.readavrobreak()))
       except:
             print("done capturing break")
+            uwu.breakwriter.close()
+            
 
 
 
@@ -122,3 +131,5 @@ for msg in can0:
 
  
 
+  if(msg == None or b''):
+    break

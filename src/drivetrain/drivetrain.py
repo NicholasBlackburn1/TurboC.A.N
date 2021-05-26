@@ -29,11 +29,12 @@ def gasPeddleData(data):
     return pos
 
 def inPark(data):
+   
     if(data[5] == 53):
-      
-      return False
+     
+      return True
     else:
-        return True
+        return False
    
 
 def breakPeddleData(data):

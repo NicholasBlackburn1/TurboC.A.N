@@ -16,7 +16,7 @@ import logging as logger
 
 
 def readavrogas():
-    reader = DataFileReader(open(str("/home/nicholas/Desktop/cardev/collectedData/Tyquando_2021-05-26/")+str("gas")+".avro", "rb"), DatumReader())
+    reader = DataFileReader(open("/home/nicholas/Desktop/cardev/collectedData/Tyquando_2021-05-26/"+str("gas")+".avro", "rb"), DatumReader())
     index = []
     finedata = []
     generaldata = []
@@ -34,7 +34,7 @@ def readavrogas():
 
         
 def readavrobreak():
-    reader = DataFileReader(open(str("/home/nicholas/Desktop/cardev/collectedData/Tyquando_2021-05-26/")+str("break")+".avro", "rb"), DatumReader())
+    reader = DataFileReader(open("/home/nicholas/Desktop/cardev/collectedData/Tyquando_2021-05-26/"+str("break")+".avro", "rb"), DatumReader())
     index = []
     pos = []
     for gas in reader:
@@ -48,7 +48,7 @@ def readavrobreak():
     return index,pos
 
 def readavroStearing():
-    reader = DataFileReader(open(str("/home/nicholas/Desktop/cardev/collectedData/Tyquando_2021-05-26/")+str("stearing")+".avro", "rb"), DatumReader())
+    reader = DataFileReader(open("/home/nicholas/Desktop/cardev/collectedData/Tyquando_2021-05-26/"+"stearing"+".avro", "rb"), DatumReader())
     index = []
     finedata = []
     generaldata = []
@@ -124,4 +124,5 @@ def graphBreak():
 
 
 #graphBreak()
+#graphGas()
 graphStearing()
