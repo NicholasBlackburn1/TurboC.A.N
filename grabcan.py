@@ -19,8 +19,7 @@ from src.drivetrain.drivetrain import gasPeddleData, gasPeddleDataGeneral, steer
 import src.utils.datafileUwU as uwu
 
 
-logging.basicConfig(filename="logs/"+datetime.now().strftime(
-        "%Y_%m_%d-%I_%M_%S_%p_%s")+".log", level=logging.DEBUG)
+logging.basicConfig(filename="logs/"+   v+".log", level=logging.DEBUG)
 
 
 #check system name, in linux will print 'posix' and in windows will print 'nt'
@@ -31,6 +30,7 @@ print("UwU Starting Data caputrue")
 logging.debug("CanBus Starting can network...")
 #while True:
 can0 = can.interface.Bus(channel = 'can0', bustype = 'socketcan_ctypes')
+
 timetorecordData = 3000
 i = 0
 stearing = 0
@@ -40,7 +40,7 @@ gas = 0
 def breakData(breakd):
     try:
         logging.warn("getting Data from break - > dumping it to the avro file")
-        uwu.dumpbreakData(name=str("break"+str(breakd)),data=breakPeddleData(data))
+        uwu.dumpbreakData(name=str(breakd),data=breakPeddleData(data))
     
         breakd +=1
 
@@ -59,7 +59,7 @@ def breakData(breakd):
 def gasData(gas):
     try:
         logging.warn("getting Data from gas - > dumping it to the avro file")
-        uwu.dumpGasData(name=str("gas"+str(gas)),datafine=data[2],datagen=data[3])
+        uwu.dumpGasData(name=str(gas),datafine=data[2],datagen=data[3])
         
     
         gas +=1
@@ -80,7 +80,7 @@ def gasData(gas):
 def stearingData(stearing):
     try:
         logging.warn("getting Data from Wheel - > dumping it to the avro file")
-        uwu.dumpStearingData(name=str("stearing"+str(stearing)),datafine=steeringWheelDataFine(data),datagen=steeringWheelDataGeneral(data))
+        uwu.dumpStearingData(name=str(stearing),datafine=steeringWheelDataFine(data),datagen=steeringWheelDataGeneral(data))
       
         stearing +=1
       
@@ -94,13 +94,9 @@ def stearingData(stearing):
     except:
         print("done captureing Wheel data")
 
-for msg in can0:
-   
-  # This is the vehical d+ata and ids from canbus
-  id = int(msg.arbitration_id)
-  data = (binascii.hexlify(msg.data))
-  
-  
+# Captures Data from my cars canbus and addes to the files 
+def dataCature(stearing,breakdex):
+    
   # Steering Wheel Id 
   if(id == 2):
     stearingData(stearing)
@@ -108,64 +104,8 @@ for msg in can0:
   # Gas Peddle Id
   if(id == 1040):
    gasData(gas)
+
   
-    
-    
-  # breaks i think
-  #if(id == 1300):
-    #print ("Can Data from 1300"+ "  "+ "data" +str(data))
-  
-  #if(id == 117):
-    # print("C.A.N BUS 117"+ "  "+ "Data:"+str(data))
-        
-  #if(id == 1537):
-    #print("C.A.N BUS 1537"+ "  "+ "Data:"+str(data))
-
-  #if(id == 1281):
-      #print("C.A.N BUS 1281"+ "  "+ "Data:"+str(data))
-
-  """
-  # Finds all can ids under 1000
-  if(id <= 1000):
-    print("ID:"+" "+ str(id)+" "+"DATA:"+" "+str(data)+"\n")
-    logging.warn("ID:"+" "+ str(id)+" "+"DATA:"+" "+str(data)+"\n")
-  """
-
-  #if(id == 112):
-   #   print("ID:"+" "+ str(id)+" "+"DATA:"+" "+str(data)+"\n")
-   
-  #if(id == 117):
-    #print("ID:"+" "+ str(id)+" "+"DATA:"+" "+str(data)+"\n")
-
-
-  #if(id == 1299):
-    #print("ID:"+" "+ str(id)+" "+"DATA:"+" "+str(data)+"\n")
-    
-  #if(id == 1298):
-    #print("ID:"+" "+ str(id)+" "+"DATA:"+" "+str(data)+"\n")
-  
-  #if(id == 1300):
-    #print("ID:"+" "+ str(id)+" "+"DATA:"+" "+str(data)+"\n")
-
-  #if(id == 1297):
-   # print("ID:"+" "+ str(id)+" "+"DATA:"+" "+str(data)+"\n")
-
-  #if(id == 1281):
-    #print("ID:"+" "+ str(id)+" "+"DATA:"+" "+str(data)+"\n")
-  
-  #if(id == 1398):
-    #print("ID:"+" "+ str(id)+" "+"DATA:"+" "+str(data)+"\n")
-  
-  #if(id ==1536):
-    #print("ID:"+" "+ str(id)+" "+"DATA:"+" "+str(data)+"\n")
-
-  #if(id ==1537):
-    #print("ID:"+" "+ str(id)+" "+"DATA:"+" "+str(data)+"\n")
-  
-  #if(id ==1058):
-   #print("ID:"+" "+ str(id)+" "+"DATA:"+" "+str(data)+"\n")
-  
-
   if(id == 1568):
     inPark(data)
 
@@ -176,3 +116,13 @@ for msg in can0:
   if(id == 1299):
     pass
  
+
+for msg in can0:
+   
+  # This is the vehical d+ata and ids from canbus
+  id = int(msg.arbitration_id)
+  data = (binascii.hexlify(msg.data))
+  
+  
+ 
+
