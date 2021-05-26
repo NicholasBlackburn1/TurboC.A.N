@@ -32,7 +32,7 @@ logging.debug("CanBus Starting can network...")
 #while True:
 can0 = can.interface.Bus(channel = 'can0', bustype = 'socketcan_ctypes')
 
-timetorecordData = 3000
+timetorecordData = 35000 # so ex; 3000 ticks arw secons
 
 i = 0
 stearing = 0

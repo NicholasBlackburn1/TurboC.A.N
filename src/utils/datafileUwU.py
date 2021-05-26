@@ -10,7 +10,7 @@ from uuid import uuid4
 import numpy as np
 import pandas as pd
 import pathlib
-
+import logging as logger
 import avro.schema
 from avro.datafile import DataFileReader, DataFileWriter
 from avro.io import DatumReader, DatumWriter
@@ -29,19 +29,26 @@ Stearingwriter = DataFileWriter(open(str("/home/nicholas/Desktop/cardev/collecte
 def readavrogas():
     reader = DataFileReader(open(str("/home/nicholas/Desktop/cardev/collectedData/")+str("gas")+".avro", "rb"), DatumReader())
     for gas in reader:
+        logger.warn("UWU gas data")
+        logger.info(gas)
         print (gas)
     reader.close()
 
 def readavrobreak():
     reader = DataFileReader(open(str("/home/nicholas/Desktop/cardev/collectedData/")+str("break")+".avro", "rb"), DatumReader())
     for gas in reader:
+        logger.warn("UWU break data")
+        logger.info(gas)
         print (gas)
     reader.close()
 
 def readavroStearing():
-    reader = DataFileReader(open(str("/home/nicholas/Desktop/cardev/collectedData/")+str("stearing")+".avro", "rb"), DatumReader())
+    reader = DataFileReader(open(str("/home/nicholas/Desktop/cardev/collectedData/gone/")+str("stearing")+".avro", "rb"), DatumReader())
     for gas in reader:
+        logger.warn("UWU Stearing data")
+        logger.info(gas)
         print (gas)
+        return gas
     reader.close()
 
 def dumpGasData(name, datafine, datagen):
