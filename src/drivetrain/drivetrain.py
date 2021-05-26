@@ -30,8 +30,10 @@ def gasPeddleData(data):
 
 def inPark(data):
     if(data[5] == 53):
-      #led.on()
-      logging.info("in park")
+      
+      return False
+    else:
+        return True
    
 
 def breakPeddleData(data):

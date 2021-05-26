@@ -15,7 +15,9 @@ from avro import datafile
 import can
 import logging
 from configparser import ConfigParser
-import time 
+import time
+
+from sqlalchemy import false 
 from src.drivetrain.drivetrain import gasPeddleData, gasPeddleDataGeneral, steeringWheelDataFine, steeringWheelDataGeneral,inPark, breakPeddleData
 import src.utils.datafileUwU as uwu
 
@@ -39,6 +41,8 @@ stearing = 0
 breakdex = 0
 gas = 0
 
+
+inGear = False
 # Captures Data from my cars canbus and addes to the files 
 for msg in can0:
    
@@ -46,7 +50,10 @@ for msg in can0:
   id = int(msg.arbitration_id)
   data = (binascii.hexlify(msg.data))
 
-  
+  if(id == 1568):
+    inGear = inPark(data) 
+    print("Is car in park?"+ str(inGear))
+
   # Steering Wheel Id 
   if(id == 2):
       try:
@@ -57,7 +64,7 @@ for msg in can0:
       
         if stearing < timetorecordData:
           print("StearingIndex: "+str(stearing))
-        if stearing == timetorecordData:
+        if inGear:
             uwu.Stearingwriter.close()
             
             print("done with file reading break file\n")
@@ -76,7 +83,7 @@ for msg in can0:
 
         if(gas < timetorecordData):
           print("gasIndex: "+str(gas))
-        if gas == timetorecordData:
+        if inGear:
             uwu.gaswriter.close()
             
             print("done with file reading break file \n")
@@ -88,8 +95,7 @@ for msg in can0:
 
 
   
-  if(id == 1568):
-    inPark(data)
+ 
 
   if(id == 1297):
       try:

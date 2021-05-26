@@ -16,7 +16,7 @@ import logging as logger
 
 
 def readavrogas():
-    reader = DataFileReader(open(str("/home/nicholas/Desktop/cardev/collectedData/gone/")+str("gas")+".avro", "rb"), DatumReader())
+    reader = DataFileReader(open(str("/home/nicholas/Desktop/cardev/collectedData/Tyquando_2021-05-26/")+str("gas")+".avro", "rb"), DatumReader())
     index = []
     finedata = []
     generaldata = []
@@ -34,7 +34,7 @@ def readavrogas():
 
         
 def readavrobreak():
-    reader = DataFileReader(open(str("/home/nicholas/Desktop/cardev/collectedData/gone/")+str("break")+".avro", "rb"), DatumReader())
+    reader = DataFileReader(open(str("/home/nicholas/Desktop/cardev/collectedData/Tyquando_2021-05-26/")+str("break")+".avro", "rb"), DatumReader())
     index = []
     pos = []
     for gas in reader:
@@ -48,7 +48,7 @@ def readavrobreak():
     return index,pos
 
 def readavroStearing():
-    reader = DataFileReader(open(str("/home/nicholas/Desktop/cardev/collectedData/gone/")+str("stearing")+".avro", "rb"), DatumReader())
+    reader = DataFileReader(open(str("/home/nicholas/Desktop/cardev/collectedData/Tyquando_2021-05-26/")+str("stearing")+".avro", "rb"), DatumReader())
     index = []
     finedata = []
     generaldata = []
@@ -91,33 +91,31 @@ def graphGas():
     fig, ax = plt.subplots()
 
  
-    plt.plot(stindex, stgeneraldata,color='pink',label="Stearing Finer Data")
-    plt.plot(stindex, stfiner,color='red',label="Stearing General Data")
+    plt.plot(stindex, stgeneraldata,color='pink',label="Gas Peddle Finer Data")
+    plt.plot(stindex, stfiner,color='red',label="Gas Peddle General Data")
     
-    ax.set_ylabel("indexer counter")
-    ax.set_xlabel("Tics Recording time")
+    ax.set_ylabel("Peddel Pos")
+    ax.set_xlabel("Tics Recording time ")
+
     ax.legend()
-    plt.title("Gas Wheel Data")
+    plt.title("Gas Peddel Data")
     plt.show()
 
-def breakGraph():
+def graphBreak():
 
+    stindex, Pos = readavrobreak()
 
-    index,Pos = ()
-
-    x = index
-    y = Pos
+  
     fig, ax = plt.subplots()
 
-    # Using set_dashes() to modify dashing of an existing line
-    line1, = ax.plot(x, y, label='Using set_dashes()')
+ 
+    plt.plot(stindex, Pos,color='red',label="Breaking General Data")
+    
+    ax.set_ylabel("Peddel Pos")
+    ax.set_xlabel("Tics Recording time ")
 
-    # Using plot(..., dashes=...) to set the dashing when creating a line
-    line2, = ax.plot(x, y , label='Using the dashes parameter')
-
-    plt.ylabel("indexer counter")
-    plt.xlabel("Tics Recording time")
-    plt.title("Break Wheel Data")
+    ax.legend()
+    plt.title("Break Peddel Data")
     plt.show()
 
 
@@ -125,4 +123,5 @@ def breakGraph():
 
 
 
-graphGas()
+#graphBreak()
+graphStearing()
