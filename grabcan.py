@@ -71,10 +71,12 @@ for msg in can0:
             uwu.Stearingwriter.close()
             
             print("done with file reading break file\n")
-            logging.warn(str("Stearing Data")+str(uwu.readavroStearing()))
+            #logging.warn(str("Stearing Data")+str(uwu.readavroStearing()))
       except:
         print("done captureing Wheel data")
-        uwu.Stearingwriter.close()
+       
+            
+
 
   
   if(id == 1040):
@@ -94,10 +96,14 @@ for msg in can0:
             print("done with file reading break file \n")
             print("gas data \n")
             uwu.readavrogas()
-            print(str("Gas Data")+str(uwu.readavrogas()))
+            #print(str("Gas Data")+str(uwu.readavrogas()))
     except:
-        print("done capturing Gas")
-        uwu.gaswriter.flush()
+        print("done capturing Gas")            
+        try:
+              uwu.gaswriter.close()
+        except:
+              print("coukld not save")
+            
 
 
   
@@ -118,10 +124,13 @@ for msg in can0:
                 
                 print("done with file reading break file \n")
                 print("break data \n")
-                logging.warn(str("Break Data")+str(uwu.readavrobreak()))
+                #logging.warn(str("Break Data")+str(uwu.readavrobreak()))
       except:
             print("done capturing break")
-            uwu.breakwriter.close()
+            try:
+              uwu.breakwriter.close()
+            except:
+              print("coukld not save")
             
 
 

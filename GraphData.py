@@ -18,11 +18,11 @@ import logging as logger
 
 
 Location = str("Tyquando_2021-05-26/")
-StorePath = str("/home/nicholas/Desktop/cardev/collectedData/"+Location)
+StorePath = "/home/nicholas/Desktop/cardev/collectedData/"
 
 
 def readavrogas():
-    reader = DataFileReader(open(StorePath+str("gas")+".avro", "rb"), DatumReader())
+    reader = DataFileReader(open(StorePath+"gas"+".avro", "rb"), DatumReader())
     index = []
     finedata = []
     generaldata = []
@@ -40,7 +40,7 @@ def readavrogas():
 
         
 def readavrobreak():
-    reader = DataFileReader(open(StorePath+str("break")+".avro", "rb"), DatumReader())
+    reader = DataFileReader(open(StorePath+"break"+".avro", "rb"), DatumReader())
     index = []
     pos = []
     for gas in reader:
@@ -131,4 +131,12 @@ def graphBreak():
 
 #graphBreak()
 #graphGas()
-graphStearing()
+try:
+    reader = DataFileReader(open(StorePath+str("break")+".avro", "rb"), DatumReader())
+    for gas in reader:
+        print(gas)
+        
+
+    reader.close()
+except:
+ print("could not open file")

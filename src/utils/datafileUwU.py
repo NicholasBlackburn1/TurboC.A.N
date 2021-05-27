@@ -18,56 +18,66 @@ from time import sleep
 
 
 Location = str("Tyquando_2021-05-26/")
-StorePath = str("/home/nicholas/Desktop/cardev/collectedData/"+Location)
+StorePath = str("/home/nicholas/Desktop/cardev/collectedData/")
 
-gasschema = avro.schema.parse(open("/home/nicholas/Desktop/cardev/src/utils/gas.avsc", "rb").read())
-gaswriter = DataFileWriter(open(str(StorePath)+str("gas")+".avro", "w+b"), DatumWriter(), gasschema)
+gasschema = avro.schema.parse(
+    open("/home/nicholas/Desktop/cardev/src/utils/gas.avsc", "rb").read())
+gaswriter = DataFileWriter(
+    open(str(StorePath)+str("gas")+".avro", "wb"), DatumWriter(), gasschema)
 
-breakschema = avro.schema.parse(open("/home/nicholas/Desktop/cardev/src/utils/break.avsc", "rb").read())
-breakwriter = DataFileWriter(open(str(StorePath)+str("break")+".avro", "w+b"), DatumWriter(), breakschema)
+breakschema = avro.schema.parse(
+    open("/home/nicholas/Desktop/cardev/src/utils/break.avsc", "rb").read())
+breakwriter = DataFileWriter(
+    open(str(StorePath)+str("break")+".avro", "wb"), DatumWriter(), breakschema)
 
-Stearingschema = avro.schema.parse(open("/home/nicholas/Desktop/cardev/src/utils/stearing.avsc", "rb").read())
-Stearingwriter = DataFileWriter(open(StorePath+str("stearing")+".avro", "w+b"), DatumWriter(), Stearingschema)
+Stearingschema = avro.schema.parse(
+    open("/home/nicholas/Desktop/cardev/src/utils/stearing.avsc", "rb").read())
+Stearingwriter = DataFileWriter(
+    open(StorePath+str("stearing")+".avro", "wb"), DatumWriter(), Stearingschema)
 
 
 def readavrogas():
-    reader = DataFileReader(open(StorePath+str("gas")+".avro", "rb"), DatumReader())
+    reader = DataFileReader(
+        open(StorePath+str("gas")+".avro", "rb"), DatumReader())
     for gas in reader:
         logger.warn("UWU gas data")
         logger.info(gas)
-        print (gas)
+        #print (gas)
     reader.close()
 
+
 def readavrobreak():
-    reader = DataFileReader(open(StorePath+str("break")+".avro", "rb"), DatumReader())
+    reader = DataFileReader(
+        open(StorePath+str("break")+".avro", "rb"), DatumReader())
     for gas in reader:
         logger.warn("UWU break data")
         logger.info(gas)
-        print (gas)
+        #print (gas)
     reader.close()
 
+
 def readavroStearing():
-    reader = DataFileReader(open(StorePath+str("stearing")+".avro", "rb"), DatumReader())
+    reader = DataFileReader(
+        open(StorePath+str("stearing")+".avro", "rb"), DatumReader())
     for gas in reader:
         logger.warn("UWU Stearing data")
         logger.info(gas)
-        print (gas)
-        return gas
+        #print (gas)
     reader.close()
 
+
 def dumpGasData(name, datafine, datagen):
-   gaswriter.append({"name": str(name), "finerPos": datafine,"generalPos": datagen})
-   #print({"name": str(name), "finerPos": datafine,"generalPos": datagen})
+    gaswriter.append(
+        {"name": str(name), "finerPos": datafine, "generalPos": datagen})
+    #print({"name": str(name), "finerPos": datafine,"generalPos": datagen})
+
 
 def dumpbreakData(name, data):
-   breakwriter.append({"name": str(name), "Pos": data})
-   #print({"name": str(name), "Pos": data})
+    breakwriter.append({"name": str(name), "Pos": data})
+    #print({"name": str(name), "Pos": data})
 
 
-  
-def dumpStearingData(name, datafine,datagen):
-   Stearingwriter.append({"name": str(name), "finerPos": datafine,"generalPos": datagen})
-   #print({"name": str(name), "finerPos": datafine,"generalPos": datagen})
-
-    
-    
+def dumpStearingData(name, datafine, datagen):
+    Stearingwriter.append(
+        {"name": str(name), "finerPos": datafine, "generalPos": datagen})
+    #print({"name": str(name), "finerPos": datafine,"generalPos": datagen})
