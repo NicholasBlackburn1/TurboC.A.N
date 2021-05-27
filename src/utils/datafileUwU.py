@@ -33,12 +33,12 @@ breakwriter = DataFileWriter(
 Stearingschema = avro.schema.parse(
     open("/home/nicholas/Desktop/cardev/src/utils/stearing.avsc", "rb").read())
 Stearingwriter = DataFileWriter(
-    open(StorePath+str("stearing")+".avro", "wb"), DatumWriter(), Stearingschema)
+    open(StorePath+"stearing"+".avro", "wb"), DatumWriter(), Stearingschema)
 
 
 def readavrogas():
     reader = DataFileReader(
-        open(StorePath+str("gas")+".avro", "rb"), DatumReader())
+        open(StorePath+"gas"+".avro", "rb"), DatumReader())
     for gas in reader:
         logger.warn("UWU gas data")
         logger.info(gas)
@@ -48,7 +48,7 @@ def readavrogas():
 
 def readavrobreak():
     reader = DataFileReader(
-        open(StorePath+str("break")+".avro", "rb"), DatumReader())
+        open(StorePath+"break"+".avro", "rb"), DatumReader())
     for gas in reader:
         logger.warn("UWU break data")
         logger.info(gas)
@@ -58,7 +58,7 @@ def readavrobreak():
 
 def readavroStearing():
     reader = DataFileReader(
-        open(StorePath+str("stearing")+".avro", "rb"), DatumReader())
+        open(StorePath+"stearing"+".avro", "rb"), DatumReader())
     for gas in reader:
         logger.warn("UWU Stearing data")
         logger.info(gas)

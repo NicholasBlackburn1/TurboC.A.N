@@ -5,6 +5,7 @@ this file is for graphing data thats been collected
 
 from asyncore import read
 from cProfile import label
+import os
 
 from matplotlib import colors
 import numpy as np
@@ -22,52 +23,61 @@ StorePath = "/home/nicholas/Desktop/cardev/collectedData/"
 
 
 def readavrogas():
-    reader = DataFileReader(open(StorePath+"gas"+".avro", "rb"), DatumReader())
-    index = []
-    finedata = []
-    generaldata = []
+    if(os.path.isfile((StorePath+"Test"+".avro"))):
+        reader = DataFileReader(open(StorePath+"gas"+".avro", "rb"), DatumReader())
+        index = []
+        finedata = []
+        generaldata = []
 
-    for gas in reader:
-        logger.warn("UWU gas data")
-        logger.info(gas)
-        index.append(int(gas['name']))
-        finedata.append(int(gas['finerPos']))
-        generaldata.append(int(gas['generalPos']))
+        for gas in reader:
+            logger.warn("UWU gas data")
+            logger.info(gas)
+            index.append(int(gas['name']))
+            finedata.append(int(gas['finerPos']))
+            generaldata.append(int(gas['generalPos']))
 
-    reader.close()
-    return index,finedata,generaldata
-    
+        reader.close()
+        return index,finedata,generaldata
+    else:
+        return 0,0,0
+        
 
         
 def readavrobreak():
-    reader = DataFileReader(open(StorePath+"break"+".avro", "rb"), DatumReader())
-    index = []
-    pos = []
-    for gas in reader:
-        logger.warn("UWU break data")
-        logger.info(gas)
-        index.append(int(gas['name']))
-        pos.append(int(gas['Pos']))
-        
+    if(os.path.isfile((StorePath+"break"+".avro"))):
+        reader = DataFileReader(open(StorePath+"break"+".avro", "rb"), DatumReader())
+        index = []
+        pos = []
+        for gas in reader:
+            logger.warn("UWU break data")
+            logger.info(gas)
+            index.append(int(gas['name']))
+            pos.append(int(gas['Pos']))
+            
 
-    reader.close()
-    return index,pos
+        reader.close()
+        return index,pos
+    else:
+        return 0,0
 
 def readavroStearing():
-    reader = DataFileReader(open(StorePath+"stearing"+".avro", "rb"), DatumReader())
-    index = []
-    finedata = []
-    generaldata = []
+    if(os.path.isfile((StorePath+"stearing"+".avro"))):
+        reader = DataFileReader(open(StorePath+"stearing"+".avro", "rb"), DatumReader())
+        index = []
+        finedata = []
+        generaldata = []
 
-    for gas in reader:
-        logger.warn("UWU Stearing data")
-        logger.info(gas)
-        index.append(int(gas['name']))
-        finedata.append(int(gas['finerPos']))
-        generaldata.append(int(gas['generalPos']))
+        for gas in reader:
+            logger.warn("UWU Stearing data")
+            logger.info(gas)
+            index.append(int(gas['name']))
+            finedata.append(int(gas['finerPos']))
+            generaldata.append(int(gas['generalPos']))
 
-    reader.close()
-    return index,finedata,generaldata
+        reader.close()
+        return index,finedata,generaldata
+    else: 
+        return 0,0,0
     
 
 def graphStearing():
@@ -129,14 +139,5 @@ def graphBreak():
 
 
 
-#graphBreak()
-#graphGas()
-try:
-    reader = DataFileReader(open(StorePath+str("break")+".avro", "rb"), DatumReader())
-    for gas in reader:
-        print(gas)
-        
 
-    reader.close()
-except:
- print("could not open file")
+print(readavrobreak())

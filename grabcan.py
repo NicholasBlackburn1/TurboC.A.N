@@ -17,128 +17,105 @@ import logging
 from configparser import ConfigParser
 import time
 
-from sqlalchemy import false 
-from src.drivetrain.drivetrain import gasPeddleData, gasPeddleDataGeneral, steeringWheelDataFine, steeringWheelDataGeneral,inPark, breakPeddleData
+from sqlalchemy import false
+from src.drivetrain.drivetrain import gasPeddleData, gasPeddleDataGeneral, steeringWheelDataFine, steeringWheelDataGeneral, inPark, breakPeddleData
 import src.utils.datafileUwU as uwu
 
 
 logging.basicConfig(filename="logs/"+"s"+".log", level=logging.DEBUG)
 
 
-#check system name, in linux will print 'posix' and in windows will print 'nt'
+# check system name, in linux will print 'posix' and in windows will print 'nt'
 print("UwU Starting Data caputrue")
 
 
-
 logging.debug("CanBus Starting can network...")
-#while True:
-can0 = can.interface.Bus(channel = 'can0', bustype = 'socketcan_ctypes')
+# while True:
+can0 = can.interface.Bus(
+    channel='can0', bustype='socketcan_ctypes', timeout=1.0)
 
-timetorecordData = 35000 # so ex; 3000 ticks arw secons
+timetorecordData = 35000  # so ex; 3000 ticks arw secons
 
 i = 0
 stearing = 0
+
 breakdex = 0
 gas = 0
 
-
+heartbeat = 0
 inGear = None
-# Captures Data from my cars canbus and addes to the files 
-for msg in can0:
-   
-  # This is the vehical d+ata and ids from canbus
-  id = int(msg.arbitration_id)
-  data = (binascii.hexlify(msg.data))
 
-  if(id == 1568):
-    inGear = inPark(data) 
-    print(data)
-    print("Is car in park?"+ str(inGear))
 
-  # Steering Wheel Id 
-  if(id == 2):
-      try:
-        logging.warn("getting Data from Wheel - > dumping it to the avro file")
-        uwu.dumpStearingData(name=str(stearing),datafine=steeringWheelDataFine(data),datagen=steeringWheelDataGeneral(data))
-      
-        stearing +=1
-      
-        if stearing < timetorecordData:
-          #print("StearingIndex: "+str(stearing))
-           pass
-        if inGear:
+def save_all_files():
+  if inGear:
             
-            uwu.Stearingwriter.close()
-            
-            print("done with file reading break file\n")
-            #logging.warn(str("Stearing Data")+str(uwu.readavroStearing()))
-      except:
-        print("done captureing Wheel data")
-       
-            
-
-
-  
-  if(id == 1040):
-    try:
-        logging.warn("getting Data from gas - > dumping it to the avro file")
-        uwu.dumpGasData(name=str(gas),datafine=data[2],datagen=data[3])
-        
+    uwu.Stearingwriter.close()
     
-        gas +=1
+    print("done with file reading stearing file\n")
+    logging.warn(str("Stearing Data")+str(uwu.readavroStearing()))
 
-        if(gas < timetorecordData):
-          #print("gasIndex: "+str(gas))
-          pass
-        if inGear:
-            uwu.gaswriter.close()
-            
-            print("done with file reading break file \n")
-            print("gas data \n")
-            uwu.readavrogas()
-            #print(str("Gas Data")+str(uwu.readavrogas()))
-    except:
-        print("done capturing Gas")            
-        try:
-              uwu.gaswriter.close()
-        except:
-              print("coukld not save")
-            
+    uwu.gaswriter.close()
+    print("done with file reading gass file \n")
+    print("gas data \n")
+    uwu.readavrogas()
+    print(str("Gas Data")+str(uwu.readavrogas()))
 
+    uwu.breakwriter.close()
 
-  
- 
-
-  if(id == 1297):
-      try:
-            logging.warn("getting Data from break - > dumping it to the avro file")
-            uwu.dumpbreakData(name=str(breakdex),data=breakPeddleData(data))
-        
-            breakdex+=1
-
-            if(breakdex < timetorecordData):
-              #print("breakIndex: "+str(breakdex))
-              pass
-            if inGear:
-                uwu.breakwriter.close()
-                
-                print("done with file reading break file \n")
-                print("break data \n")
-                #logging.warn(str("Break Data")+str(uwu.readavrobreak()))
-      except:
-            print("done capturing break")
-            try:
-              uwu.breakwriter.close()
-            except:
-              print("coukld not save")
-            
+    print("done with file reading break file \n")
+    print("break data \n")
+    logging.warn(str("Break Data")+str(uwu.readavrobreak()))
 
 
 
-  if(id == 1299):
-    pass
 
- 
+    # Captures Data from my cars canbus and addes to the files
+for msg in can0:
 
-  if(msg == None or b''):
-    break
+    # watch dog for program
+    if(msg == None):
+        heartbeat += 1
+
+    # Saves all files and exiteds program
+    if(heartbeat >= 10):
+        logging.critical("WATCHDOG OVER RUN QUITTING PROGRAM and Saving Files")
+        save_all_files()
+        can0.shutdown()
+        logging.debug("good by Program is Ready to die")
+        quit()
+    else:
+        continue
+
+    # if(msg is None or emty): start counting -> if counter  is 10 continue  then reset counter in main code
+    # This is the vehical data and ids from canbus
+
+    id = int(msg.arbitration_id)
+    data = (binascii.hexlify(msg.data))
+
+    if(id == 1568):
+        inGear = inPark(data)
+        print(data)
+        print("Is car in park?" + str(inGear))
+
+    # Steering Wheel Id
+    if(id == 2):
+
+        logging.warn("getting Data from Wheel - > dumping it to the avro file")
+        uwu.dumpStearingData(name=str(stearing), datafine=steeringWheelDataFine(data), 
+        datagen=steeringWheelDataGeneral(data))
+
+        stearing += 1
+
+    if(id == 1040):
+        logging.warn("getting Data from gas - > dumping it to the avro file")
+        uwu.dumpGasData(name=str(gas), datafine=data[2], datagen=data[3])
+        gas += 1
+
+    if(id == 1297):
+        logging.warn("getting Data from break - > dumping it to the avro file")
+        uwu.dumpbreakData(name=str(breakdex), data=breakPeddleData(data))
+        breakdex += 1
+
+
+    if(id == 1299):
+        pass
