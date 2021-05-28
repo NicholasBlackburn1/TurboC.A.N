@@ -24,12 +24,12 @@ def gasPeddleDataGeneral(data):
 
 def gasPeddleData(data):
      #Data to Ints UwU
-    print(data[3])
+   # print(data[3])
     pos =data[3]
     return pos
 
 def inPark(data):
-    print(data[5])
+    
     if(data[5] == 53):
      
       return True

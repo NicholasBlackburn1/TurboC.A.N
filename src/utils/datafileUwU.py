@@ -36,6 +36,11 @@ Stearingwriter = DataFileWriter(
     open(StorePath+"stearing"+".avro", "wb"), DatumWriter(), Stearingschema)
 
 
+rpmschema = avro.schema.parse(
+    open("/home/nicholas/Desktop/cardev/src/utils/rpm.avsc", "rb").read())
+rpmwriter = DataFileWriter(
+    open(StorePath+"rpm"+".avro", "wb"), DatumWriter(), rpmschema)
+
 def readavrogas():
     reader = DataFileReader(
         open(StorePath+"gas"+".avro", "rb"), DatumReader())
@@ -86,4 +91,9 @@ def dumpbreakData(name, data):
 def dumpStearingData(name, datafine, datagen):
     Stearingwriter.append(
         {"name": str(name), "finerPos": datafine, "generalPos": datagen})
+    #print({"name": str(name), "finerPos": datafine,"generalPos": datagen})
+
+def dumprpmData(name, rpm, datagen):
+    rpmwriter.append(
+        {"name": str(name), "rpm": rpm, "peddelpos": datagen})
     #print({"name": str(name), "finerPos": datafine,"generalPos": datagen})

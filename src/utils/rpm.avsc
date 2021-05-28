@@ -1,0 +1,8 @@
+{"namespace": "car.engine",
+ "type": "record",
+ "name": "rpm",
+ "fields": [
+     {"name": "name", "type": "string"},
+     {"name": "rpm",  "type": "int"},
+     {"name": "peddelpos", "type": "int"}
+ ]}

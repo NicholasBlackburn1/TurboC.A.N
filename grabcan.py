@@ -40,7 +40,7 @@ timetorecordData = 35000  # so ex; 3000 ticks arw secons
 
 i = 0
 stearing = 0
-
+rpm =0
 breakdex = 0
 gas = 0
 
@@ -53,10 +53,11 @@ def save_all_files():
         uwu.Stearingwriter.close()
         uwu.gaswriter.close()
         uwu.breakwriter.close()
+        uwu.rpmwriter.close()
     except:
         print("print faild to save")
 
-
+rpms10000 =0
 id = None
 data = None
 
@@ -82,9 +83,10 @@ while True:
     # checks to see if the car is in park
     if(id == 1568):
         inGear = inPark(data)
-        print(data)
-        print("Is car in park?" + str(inGear))
-    
+       
+       
+        
+    #steering Data UwU
     if(id == 2):
         logging.warn("getting Data from Steering - > dumping it to the avro file")
         uwu.dumpStearingData(name=str(stearing),datafine=steeringWheelDataFine(data), datagen=steeringWheelDataGeneral(data))
@@ -97,10 +99,21 @@ while True:
 
     # checks the break peddel
     if(id == 1297):
-        print("Break:"+" " + str(breakPeddleData(data)))
+       # print("Break:"+" " + str(breakPeddleData(data)))
         logging.warn("getting Data from break - > dumping it to the avro file")
         uwu.dumpbreakData(name=str(breakdex), data=breakPeddleData(data))
         breakdex += 1
 
     if(id == 1299):
         pass
+
+    if(id == 1537):
+        #print("id 1537:  "+ " "+ str(int(data[7])*10))
+        
+          
+            
+       # print ("rpms x1000"+ " "+ str(int(data[7])* 256 + 15/1000))
+        # print("Break:"+" " + str(breakPeddleData(data)))
+        logging.warn("getting Data from rpm - > dumping it to the avro file")
+        uwu.dumprpmData(name=str(rpm), rpm=(int(data[7])),datagen=(int(data[8])))
+        rpm += 1
