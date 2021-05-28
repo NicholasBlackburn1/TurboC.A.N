@@ -96,17 +96,18 @@ def graphGas():
   
     fig, ax = plt.subplots()
 
- 
-    plt.plot(stindex, generlpos,color='red',label="Gas General Data")
     plt.plot(stindex, finerpos,color='pink',label="Gas Finer Data")
+    plt.plot(stindex, generlpos,color='red',label="Gas General Data")
+    
     
     ax.set_ylabel("Peddel Pos")
     ax.set_xlabel("Tics Recording time ")
 
     ax.legend()
-    plt.title("Break Peddel Data")
+    plt.title("Gas Peddel Data")
     plt.show()
 
 
 
-graphGas()
+#graphGas()
+graphBreak()
