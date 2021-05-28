@@ -56,16 +56,18 @@ def ReadgasData():
     print("read header:"+" "+str(reader._read_header())+"\n")
     print("File length:"+" "+str(reader.file_length)+"\n")
     index = []
-    general = []
+    generalpos = []
+    finerpos = []
     logger.warn("reading file")
     for gas in reader:
         index.append(int(gas['name']))
-        general.append(int(gas['generalPos']))
-            
+        generalpos.append(int(gas['generalPos']))
+        finerpos.append(int(gas['finerPos']))   
     reader.close()
     print("Index Number:"+str(index)+"\n")
-    print("pos:"+" "+ str(pos)+"\n")
-    return index,pos
+    print("general:"+" "+ str(generalpos)+"\n")
+    print("finerPos:"+" "+ str(finerpos))
+    return index,generalpos,finerpos
 
 
 def graphBreak():
@@ -86,3 +88,25 @@ def graphBreak():
     plt.show()
 
 
+
+def graphGas():
+
+    stindex, generlpos,finerpos = ReadgasData()
+
+  
+    fig, ax = plt.subplots()
+
+ 
+    plt.plot(stindex, generlpos,color='red',label="Gas General Data")
+    plt.plot(stindex, finerpos,color='pink',label="Gas Finer Data")
+    
+    ax.set_ylabel("Peddel Pos")
+    ax.set_xlabel("Tics Recording time ")
+
+    ax.legend()
+    plt.title("Break Peddel Data")
+    plt.show()
+
+
+
+graphGas()
