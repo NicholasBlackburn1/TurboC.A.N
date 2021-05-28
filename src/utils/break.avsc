@@ -1,0 +1,8 @@
+{"namespace": "car.peddel.break",
+ "type": "record",
+ "name": "break",
+ "fields": [
+     {"name": "name", "type": "string"},
+     {"name": "Pos",  "type": "int"}
+    
+ ]}

@@ -4,7 +4,8 @@ Drivetrain Data Grabbing
 
 
 import binascii
-
+import logging
+import gpiozero
 
 # gets data from Steering System and retunds the rounding info
 def steeringWheelDataGeneral(data):
@@ -16,12 +17,29 @@ def steeringWheelDataFine(data):
     return float(binascii.hexlify(data[:2]))
 
 #gets General Data From Stearing Wheel
-def gassPeddleDataGeneral(data):
+def gasPeddleDataGeneral(data):
      #Data to Ints UwU
-    pos =float(binascii.hexlify(data[6:8]))
+    pos =data[2]
     return pos
 
-def gassPeddleData(data):
+def gasPeddleData(data):
      #Data to Ints UwU
-    pos =float(binascii.hexlify(data[6]))
+    print(data[3])
+    pos =data[3]
     return pos
+
+def inPark(data):
+    print(data[5])
+    if(data[5] == 53):
+     
+      return True
+    else:
+        return False
+   
+
+def breakPeddleData(data):
+   
+    obj = int(binascii.hexlify(data[8:10]))
+    logging.info("Break Data" + str(obj))
+    return int(obj)
+    

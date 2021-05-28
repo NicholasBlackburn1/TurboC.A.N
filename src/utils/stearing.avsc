@@ -1,0 +1,8 @@
+{"namespace": "car.stearing",
+ "type": "record",
+ "name": "Stearing",
+ "fields": [
+     {"name": "name", "type": "string"},
+     {"name": "finerPos",  "type": "float"},
+     {"name": "generalPos", "type": "float"}
+ ]}
