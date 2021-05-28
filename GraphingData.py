@@ -1,4 +1,7 @@
 
+"""
+This file is for Graphing all the collected Route Data from the car UwU
+"""
 import csv
 import datetime
 import datetime
@@ -29,6 +32,8 @@ breakschema = avro.schema.parse(
 testwriter = DataFileWriter(
     open(str("/home/nicholas/Desktop/testarvo/output")+str("Test")+".avro", "wb"), DatumWriter(), breakschema)
 
+def copyData():
+pass
 
 # Reads Break Data
 def ReadbreakData():
