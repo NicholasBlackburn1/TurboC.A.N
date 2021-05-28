@@ -236,25 +236,23 @@ class App(QMainWindow):
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
 
-        gas = PlotGas(self, width=5, height=5)
-        brake = PlotBreak(self,width=5, height=5)
-        brake.move(0,500)
+        gas = PlotGas(self, width=8, height=5)
+        brake = PlotBreak(self,width=8, height=5)
+        rpm = PlotRpm(self,8,5,100)
+        steer = PlotStearing(self,8,5,100)
+        steer.move(800,500)
+        rpm.move(0,500)
+        brake.move(800,0)
         gas.move(0,0)
-
-
-        button = QPushButton('PyQt5 button', self)
-        button.setToolTip('This s an example button')
-        button.move(500,0)
-        button.resize(140,100)
 
         self.show()
 
 
 class PlotBreak(FigureCanvas):
 
-    def __init__(self, parent=None, width=10, height=4, dpi=100):
+    def __init__(self, parent=None, width=5, height=4, dpi=100):
         fig = Figure(figsize=(width, height), dpi=dpi)
-        self.axes = fig.add_subplot(111)
+        self.axes = fig.add_subplot()
 
         FigureCanvas.__init__(self, fig)
         self.setParent(parent)
@@ -267,17 +265,25 @@ class PlotBreak(FigureCanvas):
 
 
     def plot(self):
-        data = [random.random() for i in range(25)]
-        ax = self.figure.add_subplot(111)
-        ax.plot(data, 'r-')
-        ax.set_title('1')
-        self.draw()
+       
+        stindex, Pos = ReadbreakData()
+
+        ax = self.figure.add_subplot()
+
+        ax.plot(stindex, Pos, color='red', label="Breaking General Data")
+
+        ax.set_ylabel("Peddel Pos")
+        ax.set_xlabel("Tics Recording time ")
+
+        ax.legend()
+        ax.set_title("Break Peddel Data")
+        self.show()
 
 class PlotGas(FigureCanvas):
 
     def __init__(self, parent=None, width=5, height=4, dpi=100):
         fig = Figure(figsize=(width, height), dpi=dpi)
-        self.axes = fig.add_subplot(111)
+        self.axes = fig.add_subplot()
 
         FigureCanvas.__init__(self, fig)
         self.setParent(parent)
@@ -303,6 +309,71 @@ class PlotGas(FigureCanvas):
         ax.legend()
         ax.set_title('Gas Peddle Data')
         self.show()
+
+
+class PlotRpm(FigureCanvas):
+
+    def __init__(self, parent=None, width=5, height=4, dpi=100):
+        fig = Figure(figsize=(width, height), dpi=dpi)
+        self.axes = fig.add_subplot()
+
+        FigureCanvas.__init__(self, fig)
+        self.setParent(parent)
+
+        FigureCanvas.setSizePolicy(self,
+                QSizePolicy.Expanding,
+                QSizePolicy.Expanding)
+        FigureCanvas.updateGeometry(self)
+        self.plot()
+
+
+    def plot(self):
+        stindex, rpm, ped = ReadRpmData()
+        ax = self.figure.add_subplot()
+
+        ax.plot(stindex, rpm, color='pink', label="unprossed rpm")
+        ax.plot(stindex, ped, color='red', label="Rpm data")
+
+        ax.set_ylabel("Rpms")
+        ax.set_xlabel("Tics Recording time ")
+
+        ax.legend()
+        ax.set_title('Rpm Data')
+        self.show()
+
+
+class PlotStearing(FigureCanvas):
+
+    def __init__(self, parent=None, width=5, height=4, dpi=100):
+        fig = Figure(figsize=(width, height), dpi=dpi)
+        self.axes = fig.add_subplot()
+
+        FigureCanvas.__init__(self, fig)
+        self.setParent(parent)
+
+        FigureCanvas.setSizePolicy(self,
+                QSizePolicy.Expanding,
+                QSizePolicy.Expanding)
+        FigureCanvas.updateGeometry(self)
+        self.plot()
+
+
+    def plot(self):
+        stindex, generlpos, finerpos = ReadStearingData()
+
+        ax = self.figure.add_subplot()
+
+        ax.plot(stindex, finerpos, color='pink', label="Wheel Finer Data")
+        ax.plot(stindex, generlpos, color='red', label="Wheel General Data")
+
+        ax.set_ylabel("Wheel pos")
+        ax.set_xlabel("Tics Recording time ")
+
+        ax.legend()
+        ax.set_title('Stearing Data')
+        self.show()
+
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = App()
