@@ -18,7 +18,7 @@ from time import sleep
 
 
 Location = str("Tyquando_2021-05-26/")
-StorePath = str("/home/nicholas/Desktop/cardev/collectedData/")
+StorePath = str("/home/nicholas/Desktop/cardev/output/")
 
 gasschema = avro.schema.parse(
     open("/home/nicholas/Desktop/cardev/src/utils/gas.avsc", "rb").read())
@@ -42,18 +42,21 @@ def readavrogas():
     for gas in reader:
         logger.warn("UWU gas data")
         logger.info(gas)
-        #print (gas)
+        print (gas)
     reader.close()
-
+    return reader.file_length
 
 def readavrobreak():
     reader = DataFileReader(
         open(StorePath+"break"+".avro", "rb"), DatumReader())
+        
     for gas in reader:
         logger.warn("UWU break data")
         logger.info(gas)
-        #print (gas)
+        print (gas)
+    
     reader.close()
+    return reader.file_length
 
 
 def readavroStearing():
@@ -62,8 +65,11 @@ def readavroStearing():
     for gas in reader:
         logger.warn("UWU Stearing data")
         logger.info(gas)
-        #print (gas)
+        print(gas)
     reader.close()
+    return reader.file_length
+
+
 
 
 def dumpGasData(name, datafine, datagen):

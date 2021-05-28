@@ -32,7 +32,8 @@ print("UwU Starting Data caputrue")
 logging.debug("CanBus Starting can network...")
 # while True:
 can0 = can.interface.Bus(
-    channel='can0', bustype='socketcan_ctypes', timeout=1.0)
+    channel='can0', bustype='socketcan_ctypes')
+notifier = can.Notifier(can0, can0,timeout=.5)  # pylint: disable=unused-variable
 
 timetorecordData = 35000  # so ex; 3000 ticks arw secons
 
@@ -47,71 +48,50 @@ inGear = None
 
 
 def save_all_files():
-  if inGear:
-            
-    uwu.Stearingwriter.close()
+    try:
     
-    print("done with file reading stearing file\n")
-    logging.warn(str("Stearing Data")+str(uwu.readavroStearing()))
-
-    uwu.gaswriter.close()
-    print("done with file reading gass file \n")
-    print("gas data \n")
-    uwu.readavrogas()
-    print(str("Gas Data")+str(uwu.readavrogas()))
-
-    uwu.breakwriter.close()
-
-    print("done with file reading break file \n")
-    print("break data \n")
-    logging.warn(str("Break Data")+str(uwu.readavrobreak()))
+        uwu.breakwriter.close()
+        print(str("Break Data File Size:")+" "+str(uwu.readavrobreak()))
+    except:
+        print("print faild to save")
 
 
+id = None
+data = None
 
-
-    # Captures Data from my cars canbus and addes to the files
-for msg in can0:
-
-    # watch dog for program
+while True:
+    msg = can0.recv(timeout=0.5)
+ # watch dog for program
     if(msg == None):
         heartbeat += 1
-
-    # Saves all files and exiteds program
-    if(heartbeat >= 10):
-        logging.critical("WATCHDOG OVER RUN QUITTING PROGRAM and Saving Files")
-        save_all_files()
-        can0.shutdown()
-        logging.debug("good by Program is Ready to die")
-        quit()
+        print("hartbeet:"+str(heartbeat))
     else:
-        continue
+        id = int(msg.arbitration_id)
+        data = (binascii.hexlify(msg.data))
+        
+    # Saves all files and exiteds program
+    if(heartbeat == 10):
+        logging.warn("WATCHDOG OVER RUN QUITTING PROGRAM and Saving Files")
+        save_all_files()
+        logging.debug("good by Program is Ready to die")
+        can0.shutdown()
+        break
+ 
 
     # if(msg is None or emty): start counting -> if counter  is 10 continue  then reset counter in main code
     # This is the vehical data and ids from canbus
 
-    id = int(msg.arbitration_id)
-    data = (binascii.hexlify(msg.data))
+   
 
     if(id == 1568):
         inGear = inPark(data)
         print(data)
         print("Is car in park?" + str(inGear))
 
-    # Steering Wheel Id
-    if(id == 2):
-
-        logging.warn("getting Data from Wheel - > dumping it to the avro file")
-        uwu.dumpStearingData(name=str(stearing), datafine=steeringWheelDataFine(data), 
-        datagen=steeringWheelDataGeneral(data))
-
-        stearing += 1
-
-    if(id == 1040):
-        logging.warn("getting Data from gas - > dumping it to the avro file")
-        uwu.dumpGasData(name=str(gas), datafine=data[2], datagen=data[3])
-        gas += 1
+    
 
     if(id == 1297):
+        print("Break:"+" "+ str(breakPeddleData(data)))
         logging.warn("getting Data from break - > dumping it to the avro file")
         uwu.dumpbreakData(name=str(breakdex), data=breakPeddleData(data))
         breakdex += 1

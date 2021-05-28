@@ -22,104 +22,47 @@ Location = str("Tyquando_2021-05-26/")
 StorePath = "/home/nicholas/Desktop/cardev/collectedData/"
 
 
-def readavrogas():
-    if(os.path.isfile((StorePath+"Test"+".avro"))):
-        reader = DataFileReader(open(StorePath+"gas"+".avro", "rb"), DatumReader())
-        index = []
-        finedata = []
-        generaldata = []
+import csv
+import datetime
+import datetime
+from sqlite3 import Date
+from uuid import uuid4
+import numpy as np
+import pandas as pd
+import pathlib
+import logging as logger
+import avro.schema
+from avro.datafile import DataFileReader, DataFileWriter
+from avro.io import DatumReader, DatumWriter
+from time import sleep
+import matplotlib.pyplot as plt
 
-        for gas in reader:
-            logger.warn("UWU gas data")
-            logger.info(gas)
-            index.append(int(gas['name']))
-            finedata.append(int(gas['finerPos']))
-            generaldata.append(int(gas['generalPos']))
+      
+def testRead():
 
-        reader.close()
-        return index,finedata,generaldata
-    else:
-        return 0,0,0
-        
+    print("Reading  file..")
 
-        
-def readavrobreak():
-    if(os.path.isfile((StorePath+"break"+".avro"))):
-        reader = DataFileReader(open(StorePath+"break"+".avro", "rb"), DatumReader())
-        index = []
-        pos = []
-        for gas in reader:
-            logger.warn("UWU break data")
-            logger.info(gas)
-            index.append(int(gas['name']))
-            pos.append(int(gas['Pos']))
+    reader = DataFileReader(
+    open(str("/home/nicholas/Desktop/cardev/output/")+str("break")+".avro", "rb"), DatumReader())
+    print("Block count:"+str(reader.block_count)+"\n")
+    print("IS eof:"+str(reader.is_EOF())+"\n")
+    print("read header:"+" "+str(reader._read_header())+"\n")
+    print("File length:"+" "+str(reader.file_length)+"\n")
+    index = []
+    pos = []
+    logger.warn("reading file")
+    for gas in reader:
+        index.append(int(gas['name']))
+        pos.append(int(gas['Pos']))
             
-
-        reader.close()
-        return index,pos
-    else:
-        return 0,0
-
-def readavroStearing():
-    if(os.path.isfile((StorePath+"stearing"+".avro"))):
-        reader = DataFileReader(open(StorePath+"stearing"+".avro", "rb"), DatumReader())
-        index = []
-        finedata = []
-        generaldata = []
-
-        for gas in reader:
-            logger.warn("UWU Stearing data")
-            logger.info(gas)
-            index.append(int(gas['name']))
-            finedata.append(int(gas['finerPos']))
-            generaldata.append(int(gas['generalPos']))
-
-        reader.close()
-        return index,finedata,generaldata
-    else: 
-        return 0,0,0
-    
-
-def graphStearing():
-
-    stindex, stfiner,stgeneraldata = readavroStearing()
-
-  
-    fig, ax = plt.subplots()
-
- 
-    plt.plot(stindex, stfiner,color='pink',label="Stearing Finer Data")
-    plt.plot(stindex, stgeneraldata,color='red',label="Stearing General Data")
-    
-    ax.set_ylabel("indexer counter")
-    ax.set_xlabel("Tics Recording time")
-    ax.legend()
-    plt.title("Stearing Wheel Data")
-    plt.show()
-
-
-
-def graphGas():
-
-    stindex, stfiner,stgeneraldata = readavrogas()
-
-  
-    fig, ax = plt.subplots()
-
- 
-    plt.plot(stindex, stgeneraldata,color='pink',label="Gas Peddle Finer Data")
-    plt.plot(stindex, stfiner,color='red',label="Gas Peddle General Data")
-    
-    ax.set_ylabel("Peddel Pos")
-    ax.set_xlabel("Tics Recording time ")
-
-    ax.legend()
-    plt.title("Gas Peddel Data")
-    plt.show()
+    reader.close()
+    print("Index Number:"+str(index)+"\n")
+    print("pos:"+" "+ str(pos)+"\n")
+    return index,pos
 
 def graphBreak():
 
-    stindex, Pos = readavrobreak()
+    stindex, Pos = testRead()
 
   
     fig, ax = plt.subplots()
@@ -135,9 +78,4 @@ def graphBreak():
     plt.show()
 
 
-
-
-
-
-
-print(readavrobreak())
+graphBreak()

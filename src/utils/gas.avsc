@@ -1,6 +1,6 @@
 {"namespace": "car.peddel.brake",
  "type": "record",
- "name": "brake",
+ "name": "CarData",
  "fields": [
      {"name": "name", "type": "string"},
      {"name": "finerPos",  "type": ["int", "null"]},
