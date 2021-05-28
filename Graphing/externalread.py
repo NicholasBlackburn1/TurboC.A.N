@@ -21,21 +21,12 @@ testwriter = DataFileWriter(
 
       
 
-
-
-def dumpbreakData(name, data):
-   testwriter.append({"name": str(name), "Pos": data})
-   #print({"name": str(name), "Pos": data})
-bo= None
-i = 0
-
-
-def testRead():
+def ReadbreakData():
 
     print("Reading  file..")
 
     reader = DataFileReader(
-    open(str("/home/nicholas/Desktop/testarvo/output/")+str("break")+".avro", "rb"), DatumReader())
+    open(str("/home/nicholas/Desktop/cardev/Graphing/output/")+str("break")+".avro", "rb"), DatumReader())
     print("Block count:"+str(reader.block_count)+"\n")
     print("IS eof:"+str(reader.is_EOF())+"\n")
     print("read header:"+" "+str(reader._read_header())+"\n")
@@ -52,9 +43,34 @@ def testRead():
     print("pos:"+" "+ str(pos)+"\n")
     return index,pos
 
+
+
+def ReadgasData():
+
+    print("Reading  file..")
+
+    reader = DataFileReader(
+    open(str("/home/nicholas/Desktop/cardev/Graphing/output/")+str("gas")+".avro", "rb"), DatumReader())
+    print("Block count:"+str(reader.block_count)+"\n")
+    print("IS eof:"+str(reader.is_EOF())+"\n")
+    print("read header:"+" "+str(reader._read_header())+"\n")
+    print("File length:"+" "+str(reader.file_length)+"\n")
+    index = []
+    general = []
+    logger.warn("reading file")
+    for gas in reader:
+        index.append(int(gas['name']))
+        general.append(int(gas['generalPos']))
+            
+    reader.close()
+    print("Index Number:"+str(index)+"\n")
+    print("pos:"+" "+ str(pos)+"\n")
+    return index,pos
+
+
 def graphBreak():
 
-    stindex, Pos = testRead()
+    stindex, Pos = ReadbreakData()
 
   
     fig, ax = plt.subplots()
@@ -70,4 +86,3 @@ def graphBreak():
     plt.show()
 
 
-graphBreak()
