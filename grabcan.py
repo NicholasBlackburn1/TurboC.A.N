@@ -33,7 +33,8 @@ logging.debug("CanBus Starting can network...")
 # while True:
 can0 = can.interface.Bus(
     channel='can0', bustype='socketcan_ctypes')
-notifier = can.Notifier(can0, can0,timeout=.5)  # pylint: disable=unused-variable
+notifier = can.Notifier(
+    can0, can0, timeout=.5)  # pylint: disable=unused-variable
 
 timetorecordData = 35000  # so ex; 3000 ticks arw secons
 
@@ -49,9 +50,9 @@ inGear = None
 
 def save_all_files():
     try:
-    
+        uwu.Stearingwriter.close()
+        uwu.gaswriter.close()
         uwu.breakwriter.close()
-        print(str("Break Data File Size:")+" "+str(uwu.readavrobreak()))
     except:
         print("print faild to save")
 
@@ -61,6 +62,7 @@ data = None
 
 while True:
     msg = can0.recv(timeout=0.5)
+
  # watch dog for program
     if(msg == None):
         heartbeat += 1
@@ -68,7 +70,7 @@ while True:
     else:
         id = int(msg.arbitration_id)
         data = (binascii.hexlify(msg.data))
-        
+
     # Saves all files and exiteds program
     if(heartbeat == 10):
         logging.warn("WATCHDOG OVER RUN QUITTING PROGRAM and Saving Files")
@@ -76,26 +78,29 @@ while True:
         logging.debug("good by Program is Ready to die")
         can0.shutdown()
         break
- 
-
-    # if(msg is None or emty): start counting -> if counter  is 10 continue  then reset counter in main code
-    # This is the vehical data and ids from canbus
-
-   
-
+    
+    # checks to see if the car is in park
     if(id == 1568):
         inGear = inPark(data)
         print(data)
         print("Is car in park?" + str(inGear))
-
     
+    if(id == 2):
+        logging.warn("getting Data from Steering - > dumping it to the avro file")
+        uwu.dumpStearingData(name=str(stearing),datafine=steeringWheelDataFine(data), datagen=steeringWheelDataGeneral(data))
+        stearing += 1
 
+    if(id == 1040):
+        logging.warn("getting Data from gas - > dumping it to the avro file")
+        uwu.dumpGasData(name=str(gas),datafine=gasPeddleData(data), datagen=gasPeddleDataGeneral(data))
+        gas += 1
+
+    # checks the break peddel
     if(id == 1297):
-        print("Break:"+" "+ str(breakPeddleData(data)))
+        print("Break:"+" " + str(breakPeddleData(data)))
         logging.warn("getting Data from break - > dumping it to the avro file")
         uwu.dumpbreakData(name=str(breakdex), data=breakPeddleData(data))
         breakdex += 1
-
 
     if(id == 1299):
         pass
