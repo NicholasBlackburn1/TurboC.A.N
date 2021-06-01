@@ -17,7 +17,6 @@ import logging
 from configparser import ConfigParser
 import time
 
-from sqlalchemy import false
 from src.drivetrain.drivetrain import gasPeddleData, gasPeddleDataGeneral, steeringWheelDataFine, steeringWheelDataGeneral, inPark, breakPeddleData
 import src.utils.datafileUwU as uwu
 
@@ -43,6 +42,7 @@ stearing = 0
 rpm =0
 breakdex = 0
 gas = 0
+inc = 0
 
 heartbeat = 0
 inGear = None
@@ -54,10 +54,10 @@ def save_all_files():
         uwu.gaswriter.close()
         uwu.breakwriter.close()
         uwu.rpmwriter.close()
+        uwu.Incwriter.close()
     except:
         print("print faild to save")
 
-rpms10000 =0
 id = None
 data = None
 
@@ -109,11 +109,47 @@ while True:
 
     if(id == 1537):
         #print("id 1537:  "+ " "+ str(int(data[7])*10))
-        
-          
-            
        # print ("rpms x1000"+ " "+ str(int(data[7])* 256 + 15/1000))
         # print("Break:"+" " + str(breakPeddleData(data)))
         logging.warn("getting Data from rpm - > dumping it to the avro file")
         uwu.dumprpmData(name=str(rpm), rpm=(int(data[7])),datagen=(int(data[8])))
         rpm += 1
+
+    #if(id > 1000):
+      #print(id)
+
+    #if(id == 1300):
+     #   print(data)
+
+    #if(id == 112):
+     #   print(data)
+
+
+    #if(id == 1398):
+        #nt(data)
+    """
+    if(id== 1298):
+        print("0"+" "+str(data))
+        print("1"+" "+str(data[1]))
+        print("2"+" "+str(data[2]))
+        print("3"+" "+str(data[2]))
+        print("4"+" "+str(data[3]))
+        print("5"+" "+str(data[4]))
+        print("6"+" "+str(data[5]))
+        print("7"+" "+str(data[6]))
+        print("8"+" "+str(data[7]))
+        print("9"+" "+str(data[8]))
+        print("10"+" "+str(data[9]))
+        print("11"+" "+str(data[10]))
+        print("12"+" "+str(data[11]))
+        print("13"+" "+str(data[12]))
+        print("14"+" "+str(data[13]))
+        print("15"+" "+str(data[14]))
+        print("16"+" "+str(data[15]))
+    """
+
+    if(id == 1281):
+        uwu.dumpIncData(inc,data[10],data[11])
+        inc +=1
+        
+

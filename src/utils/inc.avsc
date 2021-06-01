@@ -1,0 +1,10 @@
+{"namespace": "car.inc",
+ "type": "record",
+ "name": "inc",
+ "fields": [
+     {"name": "name", "type": "string"},
+     {"name": "fine",  "type": "int"},
+     {"name": "general",  "type": "int"}
+
+    
+ ]}

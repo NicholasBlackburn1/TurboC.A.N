@@ -32,8 +32,6 @@ breakschema = avro.schema.parse(
 testwriter = DataFileWriter(
     open(str("/home/nicholas/Desktop/testarvo/output")+str("Test")+".avro", "wb"), DatumWriter(), breakschema)
 
-def copyData():
-pass
 
 # Reads Break Data
 def ReadbreakData():
@@ -114,6 +112,33 @@ def ReadStearingData():
 
 
 
+    # Reads the Stearing Data
+def ReadIncData():
+
+    print("Reading  file..")
+
+    reader = DataFileReader(
+        open(str("/home/nicholas/Desktop/cardev/Graphing/output/")+str("inc")+".avro", "rb"), DatumReader())
+    print("Block count:"+str(reader.block_count)+"\n")
+    print("IS eof:"+str(reader.is_EOF())+"\n")
+    print("read header:"+" "+str(reader._read_header())+"\n")
+    print("File length:"+" "+str(reader.file_length)+"\n")
+    index = []
+    general = []
+    fine = []
+    logger.warn("reading file")
+    for gas in reader:
+        index.append(int(gas['name']))
+        general.append(int(gas['general']))
+        fine.append(int(gas['fine']))
+    reader.close()
+    print("Index Number:"+str(index)+"\n")
+    print("general:"+" " + str(general)+"\n")
+    print("finerPos:"+" " + str(fine))
+    return index, general, fine
+
+
+
 # Reads the Stearing Data
 def ReadRpmData():
 
@@ -131,8 +156,8 @@ def ReadRpmData():
     logger.warn("reading file")
     for gas in reader:
         index.append(int(gas['name']))
-        generalpos.append(int(gas['rpm']*256/4))
-        finerpos.append(int(gas['peddelpos']*256/4))
+        generalpos.append(int(gas['rpm']))
+        finerpos.append(int(gas['peddelpos']))
     reader.close()
     print("Index Number:"+str(index)+"\n")
     print("general:"+" " + str(generalpos)+"\n")
@@ -245,6 +270,7 @@ class App(QMainWindow):
         brake = PlotBreak(self,width=8, height=5)
         rpm = PlotRpm(self,8,5,100)
         steer = PlotStearing(self,8,5,100)
+        #inc = PlotInc(self,8,5,100)
         steer.move(800,500)
         rpm.move(0,500)
         brake.move(800,0)
@@ -336,14 +362,14 @@ class PlotRpm(FigureCanvas):
         stindex, rpm, ped = ReadRpmData()
         ax = self.figure.add_subplot()
 
-        ax.plot(stindex, rpm, color='pink', label="unprossed rpm")
-        ax.plot(stindex, ped, color='red', label="Rpm data")
+        ax.plot(stindex, rpm, color='pink', label="Computer Controlled Peddel i think")
+        ax.plot(stindex, ped, color='red', label="Gas Peddel data")
 
-        ax.set_ylabel("Rpms")
+        ax.set_ylabel("Rpm/ Peddel Pos")
         ax.set_xlabel("Tics Recording time ")
 
         ax.legend()
-        ax.set_title('Rpm Data')
+        ax.set_title('Rpm Data i think')
         self.show()
 
 
@@ -376,6 +402,38 @@ class PlotStearing(FigureCanvas):
 
         ax.legend()
         ax.set_title('Stearing Data')
+        self.show()
+
+    
+class PlotInc(FigureCanvas):
+
+    def __init__(self, parent=None, width=5, height=4, dpi=100):
+        fig = Figure(figsize=(width, height), dpi=dpi)
+        self.axes = fig.add_subplot()
+
+        FigureCanvas.__init__(self, fig)
+        self.setParent(parent)
+
+        FigureCanvas.setSizePolicy(self,
+                QSizePolicy.Expanding,
+                QSizePolicy.Expanding)
+        FigureCanvas.updateGeometry(self)
+        self.plot()
+
+
+    def plot(self):
+       
+        stindex, general,fine = ReadIncData()
+
+        ax = self.figure.add_subplot()
+
+        ax.plot(stindex, general, color='red', label="Inc")
+
+        ax.set_ylabel("Inc")
+        ax.set_xlabel("Tics Recording time ")
+
+        ax.legend()
+        ax.set_title("Inc Peddel Data")
         self.show()
 
 

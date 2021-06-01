@@ -36,6 +36,12 @@ Stearingwriter = DataFileWriter(
     open(StorePath+"stearing"+".avro", "wb"), DatumWriter(), Stearingschema)
 
 
+
+Incschema = avro.schema.parse(
+    open("/home/nicholas/Desktop/cardev/src/utils/inc.avsc", "rb").read())
+Incwriter = DataFileWriter(
+    open(StorePath+"inc"+".avro", "wb"), DatumWriter(), Incschema)
+
 rpmschema = avro.schema.parse(
     open("/home/nicholas/Desktop/cardev/src/utils/rpm.avsc", "rb").read())
 rpmwriter = DataFileWriter(
@@ -74,6 +80,24 @@ def readavroStearing():
     reader.close()
     return reader.file_length
 
+
+def readavroInc():
+    reader = DataFileReader(
+        open(StorePath+"inc"+".avro", "rb"), DatumReader())
+        
+    for gas in reader:
+        logger.warn("UWU inc data")
+        logger.info(gas)
+        print (gas)
+    
+    reader.close()
+    return reader.file_length
+
+
+def dumpIncData(name, datafine, datagen):
+    Incwriter.append(
+        {"name": str(name), "fine": datafine, "general":datagen})
+    #print({"name": str(name), "finerPos": datafine,"generalPos": datagen})
 
 
 

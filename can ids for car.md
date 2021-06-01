@@ -72,6 +72,8 @@ ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      
 
 ## Break / Something Is Unknown
 #### B5 seems to Detect only if the break is pressed 
+#### B6 seems to be a countor 
+#### B7 seems to be a cointor to
 ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      |
 | ------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ------------- |
 | 0x1298 | 00   |00    |  00 | 00  | 80-90   | 00-ff   | 00-ff   | 00-ff   | Unknown)|
