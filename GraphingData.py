@@ -6,6 +6,7 @@ import csv
 import datetime
 import datetime
 from sqlite3 import Date
+
 from uuid import uuid4
 import numpy as np
 import pandas as pd
@@ -156,8 +157,8 @@ def ReadRpmData():
     logger.warn("reading file")
     for gas in reader:
         index.append(int(gas['name']))
-        generalpos.append(int(gas['rpm']))
-        finerpos.append(int(gas['peddelpos']))
+        generalpos.append(int(gas['rpm']*256/15))
+        finerpos.append(int(gas['peddelpos']*256/15))
     reader.close()
     print("Index Number:"+str(index)+"\n")
     print("general:"+" " + str(generalpos)+"\n")
@@ -240,11 +241,15 @@ def graphrpm():
     fig, ax = plt.subplots()
 
   
-    plt.plot(stindex, rpm, color='pink', label="Raw Unprossed rpm")
-    plt.plot(stindex, ped, color='red', label="Main Rpm Data")
-    ax.set_ylabel("RPM")
+   
+    plt.plot(stindex, rpm, color='pink', label="Computer Controlled Peddel i think")
+    plt.plot(stindex, ped, color='red', label="Gas Peddel data")
+
+    ax.set_ylabel("Rpm/ Peddel Pos")
     ax.set_xlabel("Tics Recording time ")
+    ax.set_ylim([100,9000])
     
+
     ax.legend()
     plt.title("RPM  Data i think")
     plt.show()
@@ -367,6 +372,8 @@ class PlotRpm(FigureCanvas):
 
         ax.set_ylabel("Rpm/ Peddel Pos")
         ax.set_xlabel("Tics Recording time ")
+        ax.set_ylim([1,9000])
+     
 
         ax.legend()
         ax.set_title('Rpm Data i think')
@@ -438,6 +445,9 @@ class PlotInc(FigureCanvas):
 
 
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    ex = App()
-    sys.exit(app.exec_())
+    graphrpm()
+"""
+app = QApplication(sys.argv)
+ex = App()
+sys.exit(app.exec_())
+"""
