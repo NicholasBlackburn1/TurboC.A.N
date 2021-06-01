@@ -6,6 +6,8 @@ import csv
 import datetime
 import datetime
 from sqlite3 import Date
+import math
+
 
 from uuid import uuid4
 import numpy as np
@@ -27,6 +29,8 @@ from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 
 import random
+
+from sqlalchemy import true
 
 breakschema = avro.schema.parse(
     open("/home/nicholas/Desktop/testarvo/shem/Test.avsc", "rb").read())
@@ -50,7 +54,7 @@ def ReadbreakData():
     logger.warn("reading file")
     for gas in reader:
         index.append(int(gas['name']))
-        pos.append(int(gas['Pos']))
+        pos.append(math.sqrt(int(gas['Pos'])))
 
     reader.close()
     print("Index Number:"+str(index)+"\n")
@@ -156,9 +160,10 @@ def ReadRpmData():
     finerpos = []
     logger.warn("reading file")
     for gas in reader:
+    
         index.append(int(gas['name']))
-        generalpos.append(int(gas['rpm']*256/15))
-        finerpos.append(int(gas['peddelpos']*256/15))
+        generalpos.append(int(gas['rpm']))
+        finerpos.append(int(gas['peddelpos']))
     reader.close()
     print("Index Number:"+str(index)+"\n")
     print("general:"+" " + str(generalpos)+"\n")
@@ -242,17 +247,18 @@ def graphrpm():
 
   
    
-    plt.plot(stindex, rpm, color='pink', label="Computer Controlled Peddel i think")
+    plt.plot(stindex, rpm, color='pink', label="Throttle Flap Data Uwu")
     plt.plot(stindex, ped, color='red', label="Gas Peddel data")
 
-    ax.set_ylabel("Rpm/ Peddel Pos")
+    ax.set_ylabel("Throttle Flap")
     ax.set_xlabel("Tics Recording time ")
-    ax.set_ylim([100,9000])
+   
     
 
     ax.legend()
-    plt.title("RPM  Data i think")
+    plt.title("Throttle Flap  Data i think")
     plt.show()
+    
 
 
 
@@ -310,7 +316,6 @@ class PlotBreak(FigureCanvas):
 
         ax.set_ylabel("Peddel Pos")
         ax.set_xlabel("Tics Recording time ")
-
         ax.legend()
         ax.set_title("Break Peddel Data")
         self.show()
@@ -372,7 +377,7 @@ class PlotRpm(FigureCanvas):
 
         ax.set_ylabel("Rpm/ Peddel Pos")
         ax.set_xlabel("Tics Recording time ")
-        ax.set_ylim([1,9000])
+        
      
 
         ax.legend()
@@ -445,9 +450,10 @@ class PlotInc(FigureCanvas):
 
 
 if __name__ == '__main__':
-    graphrpm()
+    
+   graphrpm()
 """
 app = QApplication(sys.argv)
 ex = App()
 sys.exit(app.exec_())
-"""
+""" 

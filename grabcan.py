@@ -8,6 +8,7 @@ from builtins import print
 
 from cmath import sqrt
 from datetime import datetime
+import math
 import os
 import struct
 from xmlrpc.client import DateTime
@@ -109,10 +110,16 @@ while True:
 
     if(id == 1537):
         #print("id 1537:  "+ " "+ str(int(data[7])*10))
-       # print ("rpms x1000"+ " "+ str(int(data[7])* 256 + 15/1000))
+        print ("rpms x1000"+ " "+ str((int(data[7]<<8)* 256)+15))
         # print("Break:"+" " + str(breakPeddleData(data)))
         logging.warn("getting Data from rpm - > dumping it to the avro file")
         uwu.dumprpmData(name=str(rpm), rpm=(int(data[7])),datagen=(int(data[8])))
+        print("shifted byte"+str(int(data[7]<<8)))
+        print(data[7]<<8)
+        print("I thing real rpms"+str(256*int(data[7])+int(data[8])/100))
+        print("I thing real rpms shifted"+str(256*int(data[7]<<8)+int(data[8])/100))
+        print("hopefully"+str(256*data[7]+0/100))
+        
         rpm += 1
 
     #if(id > 1000):
