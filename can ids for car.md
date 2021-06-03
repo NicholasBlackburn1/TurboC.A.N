@@ -54,7 +54,7 @@ ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      
 
 
  
-## Might be Engin rpm
+## Throttle Pos UWU
 #### B4 seems to be Throttle body pos general
 #### B5 seems to be Throttle body pos finer or User added pos
 ### B6, B7, B8 seem to be Filler Bytes`
@@ -101,4 +101,42 @@ ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      
 | ------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ------------- |
 | 0x1568 | 00   |00    |  05-01 | 00  | 00   | 00   | 00   |00   |  Check if car is in Park or not)|
 
+
+
+## Something UwU
+#### B2  Maby first byte of rpms?
+#### B3  Maby second byte of rpms?
+ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      |
+| ------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ------------- |
+| 0x1536 | 00   |00-ff    | 00-ff | 00-  | 00   | 00   | 00   |00   |  Check if car is in Park or not)|
+
+
+
+## GasPeddle / other
+#### B1 ([:2]) Gross pos 
+#### B2 ([2:4]) First rpm bit
+#### B3 Some sort of data
+#### B4 Buffer Mabey but it witches between 13-14
+#### B5 Buffer bit i think
+#### B6 rmp bit 2 i think
+#### B7 Seems to Hopefully a small incremets of rotations 
+#### B8 Seems to See if Peddle is Gas Pressed or released
+ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      |
+| ------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ------------- |
+| 0x1042  | 00-ef   | 00-ef  | 00-ff  | 13-14 | 00   | 00-ff   | 00-0b   | c0-00   | Gas / rpm)|
+
+
+
+## Transmition Gear
+#### B1 sport mode or not 
+#### B2 gear 1-4
+#### B3 in manual, drive, reverse neutral, park
+#### B4 ff filler
+#### B5 7-3f 
+#### B6 rmp bit 2 i think
+#### B7 filler
+#### B8 Seems to See if Peddle is Gas Pressed or released
+ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      |
+| ------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ------------- |
+| 0x1058 | 00-01  | 09-12 | 00-ff  | 13-14 | 00   | 00-ff   | 00-0b   | c0-00   | Gas / rpm)|
 

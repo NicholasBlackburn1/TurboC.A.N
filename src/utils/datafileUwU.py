@@ -46,6 +46,10 @@ rpmschema = avro.schema.parse(
     open("/home/nicholas/Desktop/cardev/src/utils/rpm.avsc", "rb").read())
 rpmwriter = DataFileWriter(
     open(StorePath+"rpm"+".avro", "wb"), DatumWriter(), rpmschema)
+newgasschema = avro.schema.parse(
+    open("/home/nicholas/Desktop/cardev/src/utils/rpm?.avsc", "rb").read())
+newgaswriter = DataFileWriter(
+    open(StorePath+"rpm?"+".avro", "wb"), DatumWriter(), newgasschema)
 
 def readavrogas():
     reader = DataFileReader(
@@ -107,6 +111,13 @@ def dumpGasData(name, datafine, datagen):
     #print({"name": str(name), "finerPos": datafine,"generalPos": datagen})
 
 
+
+def dumpNewGasData(name, datafine, datagen,rpm1,rpm2):
+    newgaswriter.append(
+        {"name": str(name), "finerPos": datafine, "generalPos": datagen,"rpm1":rpm1,"rpm2":rpm2})
+    #print({"name": str(name), "finerPos": datafine,"generalPos": datagen})
+
+
 def dumpbreakData(name, data):
     breakwriter.append({"name": str(name), "Pos": data})
     #print({"name": str(name), "Pos": data})
@@ -121,3 +132,4 @@ def dumprpmData(name, rpm, datagen):
     rpmwriter.append(
         {"name": str(name), "rpm": rpm, "peddelpos": datagen})
     #print({"name": str(name), "finerPos": datafine,"generalPos": datagen})
+

@@ -173,6 +173,38 @@ def ReadRpmData():
     return index, generalpos, finerpos
 
 
+# Reads the Stearing Data
+def ReadnewgasData():
+
+    print("Reading  file..")
+
+    reader = DataFileReader(
+        open(str("/home/nicholas/Desktop/cardev/Graphing/output/")+str("rpm?")+".avro", "rb"), DatumReader())
+    print("Block count:"+str(reader.block_count)+"\n")
+    print("IS eof:"+str(reader.is_EOF())+"\n")
+    print("read header:"+" "+str(reader._read_header())+"\n")
+    print("File length:"+" "+str(reader.file_length)+"\n")
+    index = []
+    generalpos = []
+    finerpos = []
+    rpm1 = []
+    rpm2 = []
+    logger.warn("reading file")
+    for gas in reader:
+    
+        index.append(int(gas['name']))
+        generalpos.append(int(gas['generalPos']))
+        finerpos.append(int(gas['finerPos']))
+        rpm1.append(int(gas['rpm1']))
+        rpm2.append(int(gas['rpm2']))
+    reader.close()
+    print("Index Number:"+str(index)+"\n")
+    print("general:"+" " + str(generalpos)+"\n")
+    print("finerPos:"+" " + str(finerpos))
+    print("rpm:"+" " + str(rpm1)+"\n")
+    print("rpm2:"+" " + str(rpm2))
+    return index, generalpos, finerpos,rpm1,rpm2
+
 """
 This graphs and reads the Brak Data From file 
 """
@@ -261,6 +293,27 @@ def graphrpm():
     plt.show()
     
 
+
+def graphNewGas():
+
+    stindex, general,fine,rpm1,rpm2 = ReadnewgasData()
+    
+    fig, ax = plt.subplots()
+
+    plt.plot(stindex, rpm2, color='green', label="rpm2")
+    plt.plot(stindex, rpm1, color='blue', label="rpm1")
+    plt.plot(stindex, general, color='pink', label="gas pedd gen")
+    plt.plot(stindex, fine, color='red', label="Gas Peddel data")
+
+    ax.set_ylabel("Throttle Flap")
+    ax.set_xlabel("Tics Recording time ")
+    
+    
+
+    ax.legend()
+    plt.title("Throttle1 Flap  Data i think")
+    plt.show()
+    
 
 
 class App(QMainWindow):
@@ -370,11 +423,13 @@ class PlotRpm(FigureCanvas):
 
 
     def plot(self):
-        stindex, rpm, ped = ReadRpmData()
+        stindex, general, fine,rpm,rpm2 = ReadnewgasData()
         ax = self.figure.add_subplot()
 
+
+        ax.plot(stindex, fine, color='green', label="gas fine")
         ax.plot(stindex, rpm, color='pink', label="Throttle Flap Pos")
-        ax.plot(stindex, ped, color='red', label="Gas Peddel data")
+        ax.plot(stindex, general, color='red', label="Gas Peddel data")
 
         ax.set_ylabel("Throttle Body Pos")
         ax.set_xlabel("Tics Recording time ")
@@ -451,8 +506,8 @@ class PlotInc(FigureCanvas):
 
 
 if __name__ == '__main__':
-    
-
-    app = QApplication(sys.argv)
-    ex = App()
-    sys.exit(app.exec_())
+    graphNewGas() 
+    graphBreak()
+    graphrpm()
+    graphGas()
+        

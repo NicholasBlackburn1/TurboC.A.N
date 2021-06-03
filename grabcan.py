@@ -44,6 +44,7 @@ rpm =0
 breakdex = 0
 gas = 0
 inc = 0
+newgas =0
 
 heartbeat = 0
 inGear = None
@@ -56,6 +57,7 @@ def save_all_files():
         uwu.breakwriter.close()
         uwu.rpmwriter.close()
         uwu.Incwriter.close()
+        uwu.newgaswriter.close()
     except:
         print("print faild to save")
 
@@ -112,7 +114,8 @@ while True:
 
     if(id == 1299):
         pass
-
+    
+    # throttle Flap sensor Data
     if(id == 1537):
         #print("id 1537:  "+ " "+ str(int(data[7])*10))
         #print ("rpms x1000"+ " "+ str((int(data[7]<<8)* 256)+15))
@@ -122,10 +125,15 @@ while True:
         
         
         rpm += 1
-
-    #if(id > 1000):
-      #print(id)
-    
+   # if(id > 100):
+    #    print(id)
+    """
+        if(id == 1536):
+        print(data)
+        print(data[2:4])
+        print("debinify data:"+ " "+ str(int(binascii.hexlify(data[2:4]))*255/12))
+        print(data[5:6])
+    """    
     #if(id == 1300):
      #   print(data)
 
@@ -159,5 +167,19 @@ while True:
     if(id == 1281):
         uwu.dumpIncData(inc,data[10],data[11])
         inc +=1
-        
+    """    
+    if(id == 1042):
+        uwu.dumpNewGasData(newgas,int(binascii.hexlify(data[:2])),int(binascii.hexlify(data[10:12])),int(binascii.hexlify(data[2:4])),int(binascii.hexlify(data[4:6])))
+        newgas+=1
+    """
 
+    if(id == 1393):
+        #print(data)
+        pass
+    
+  #  if(id == 1536):
+  #      print(data)
+    if(id == 1058):
+       
+        print(data)
+        print(data[5:6])
