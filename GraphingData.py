@@ -104,16 +104,18 @@ def ReadStearingData():
     index = []
     generalpos = []
     finerpos = []
+    inc = []
     logger.warn("reading file")
     for gas in reader:
         index.append(int(gas['name']))
         generalpos.append(int(gas['generalPos']))
         finerpos.append(int(gas['finerPos']))
+        inc.append(int(gas['inc']))
     reader.close()
     print("Index Number:"+str(index)+"\n")
     print("general:"+" " + str(generalpos)+"\n")
     print("finerPos:"+" " + str(finerpos))
-    return index, generalpos, finerpos
+    return index, generalpos, finerpos, inc
 
 
 
@@ -221,10 +223,9 @@ This graphs and reads the Stearing Data From file
 
 def graphStearing():
 
-    stindex, generlpos, finerpos = ReadStearingData()
+    stindex, generlpos, finerpos,inc = ReadStearingData()
 
     fig, ax = plt.subplots()
-
     plt.plot(stindex, finerpos, color='pink', label="Stearing Finer Data")
     plt.plot(stindex, generlpos, color='red', label="Stearing General Data")
 
@@ -233,7 +234,7 @@ def graphStearing():
     
     ax.legend()
     plt.title("Steering Peddel Data")
-    plt.yticks(1000)
+   
     plt.show()
 
 
@@ -372,16 +373,16 @@ class PlotRpm(FigureCanvas):
         stindex, rpm, ped = ReadRpmData()
         ax = self.figure.add_subplot()
 
-        ax.plot(stindex, rpm, color='pink', label="Computer Controlled Peddel i think")
+        ax.plot(stindex, rpm, color='pink', label="Throttle Flap Pos")
         ax.plot(stindex, ped, color='red', label="Gas Peddel data")
 
-        ax.set_ylabel("Rpm/ Peddel Pos")
+        ax.set_ylabel("Throttle Body Pos")
         ax.set_xlabel("Tics Recording time ")
         
      
 
         ax.legend()
-        ax.set_title('Rpm Data i think')
+        ax.set_title('throttle Body Data')
         self.show()
 
 
@@ -402,7 +403,7 @@ class PlotStearing(FigureCanvas):
 
 
     def plot(self):
-        stindex, generlpos, finerpos = ReadStearingData()
+        stindex, generlpos, finerpos,inc = ReadStearingData()
 
         ax = self.figure.add_subplot()
 
@@ -451,9 +452,7 @@ class PlotInc(FigureCanvas):
 
 if __name__ == '__main__':
     
-   graphrpm()
-"""
-app = QApplication(sys.argv)
-ex = App()
-sys.exit(app.exec_())
-""" 
+
+    app = QApplication(sys.argv)
+    ex = App()
+    sys.exit(app.exec_())

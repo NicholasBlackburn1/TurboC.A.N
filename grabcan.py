@@ -89,14 +89,13 @@ while True:
         
     #steering Data UwU
     if(id == 2):
-        leftpos = ((int(data[:2])* 255 +int(data[2:4]))/26*255)
-        rightpos = ((255 - int(data[:2]) * 255) / 26*255 * -1)
-        logging.warn("getting Data from Steering - > dumping it to the avro file")
-        uwu.dumpStearingData(name=str(stearing),datafine=steeringWheelDataFine(data), datagen=steeringWheelDataGeneral(data))
+        fine = ((int(steeringWheelDataFine(data))* 255 +int(steeringWheelDataGeneral(data)))/26*255)
+        general = ((255 - int(steeringWheelDataGeneral(data)) * 255) / 26*255 * -1)
 
-        print("left Pos of wheel: " + str(leftpos))
-        print("Right Pos of wheel: " + str(rightpos))
-        
+        logging.warn("getting Data from Steering - > dumping it to the avro file")
+        uwu.dumpStearingData(name=str(stearing),datafine=fine,datagen=general,inc=int(binascii.hexlify(data[4:6])))
+       
+
         stearing += 1
 
     if(id == 1040):
@@ -116,21 +115,17 @@ while True:
 
     if(id == 1537):
         #print("id 1537:  "+ " "+ str(int(data[7])*10))
-        print ("rpms x1000"+ " "+ str((int(data[7]<<8)* 256)+15))
+        #print ("rpms x1000"+ " "+ str((int(data[7]<<8)* 256)+15))
         # print("Break:"+" " + str(breakPeddleData(data)))
         logging.warn("getting Data from rpm - > dumping it to the avro file")
         uwu.dumprpmData(name=str(rpm), rpm=(int(data[7])),datagen=(int(data[8])))
-        print("shifted byte"+str(int(data[7]<<8)))
-        print(data[7]<<8)
-        print("I thing real rpms"+str(256*int(data[7])+int(data[8])/100))
-        print("I thing real rpms shifted"+str(256*int(data[7]<<8)+int(data[8])/100))
-        print("hopefully"+str(256*data[7]+0/100))
+        
         
         rpm += 1
 
     #if(id > 1000):
       #print(id)
-
+    
     #if(id == 1300):
      #   print(data)
 

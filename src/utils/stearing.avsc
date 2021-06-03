@@ -4,5 +4,6 @@
  "fields": [
      {"name": "name", "type": "string"},
      {"name": "finerPos",  "type": "float"},
-     {"name": "generalPos", "type": "float"}
+     {"name": "generalPos", "type": "float"},
+     {"name": "inc", "type": "float"}
  ]}

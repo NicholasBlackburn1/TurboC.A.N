@@ -10,11 +10,11 @@ import gpiozero
 # gets data from Steering System and retunds the rounding info
 def steeringWheelDataGeneral(data):
     #Data to Ints UwU
-    return float(binascii.hexlify(data[2:4]))
+    return int(binascii.hexlify(data[2:4]))
 #gets Finer Data From Stearing Wheel
 def steeringWheelDataFine(data):
     #Data to Ints UwU
-    return float(binascii.hexlify(data[:2]))
+    return int(binascii.hexlify(data[:2]))
 
 #gets General Data From Stearing Wheel
 def gasPeddleDataGeneral(data):

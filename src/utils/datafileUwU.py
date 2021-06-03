@@ -112,9 +112,9 @@ def dumpbreakData(name, data):
     #print({"name": str(name), "Pos": data})
 
 
-def dumpStearingData(name, datafine, datagen):
+def dumpStearingData(name, datafine, datagen, inc):
     Stearingwriter.append(
-        {"name": str(name), "finerPos": datafine, "generalPos": datagen})
+        {"name": str(name), "finerPos": datafine, "generalPos": datagen, "inc": inc})
     #print({"name": str(name), "finerPos": datafine,"generalPos": datagen})
 
 def dumprpmData(name, rpm, datagen):
