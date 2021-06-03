@@ -89,8 +89,14 @@ while True:
         
     #steering Data UwU
     if(id == 2):
+        leftpos = ((int(data[:2])* 255 +int(data[2:4]))/26*255)
+        rightpos = ((255 - int(data[:2]) * 255) / 26*255 * -1)
         logging.warn("getting Data from Steering - > dumping it to the avro file")
         uwu.dumpStearingData(name=str(stearing),datafine=steeringWheelDataFine(data), datagen=steeringWheelDataGeneral(data))
+
+        print("left Pos of wheel: " + str(leftpos))
+        print("Right Pos of wheel: " + str(rightpos))
+        
         stearing += 1
 
     if(id == 1040):

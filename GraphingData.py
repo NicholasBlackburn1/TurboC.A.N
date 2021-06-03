@@ -256,7 +256,7 @@ def graphrpm():
     
 
     ax.legend()
-    plt.title("Throttle Flap  Data i think")
+    plt.title("Throttle1 Flap  Data i think")
     plt.show()
     
 
