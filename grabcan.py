@@ -18,7 +18,10 @@ import logging
 from configparser import ConfigParser
 import time
 
-from src.drivetrain.drivetrain import gasPeddleData, gasPeddleDataGeneral, steeringWheelDataFine, steeringWheelDataGeneral, inPark, breakPeddleData
+from scipy.fft import idstn
+
+from src.drivetrain.drivetrain import gasPeddleData, gasPeddleDataGeneral, inSportSecondGear, steeringWheelDataFine, steeringWheelDataGeneral, inPark, breakPeddleData, inSportFirstGear
+import src.drivetrain.drivetrain as drivetrain
 import src.utils.datafileUwU as uwu
 
 
@@ -180,6 +183,24 @@ while True:
   #  if(id == 1536):
   #      print(data)
     if(id == 1058):
-       
+       #rint(data)
+       """
+        print("in park?"+ " "+str(drivetrain.inPark(data)))
+        print("in reverse?"+ " "+str(drivetrain.inReverse(data)))
+        print("in neural?"+ " "+str(drivetrain.inNetural(data)))
+        # UwU normal/ Sport Drive
+        print("in Non Sport Drive?"+ " "+str(drivetrain.inDriveNonSport(data)))
+        print("in Sport Drive?"+ " "+str(drivetrain.inSport(data)))
+        # UwU gear Shift
+        print("in firstGear?"+str(inSportFirstGear(data)))
+        print("in SecondGear?"+str(inSportSecondGear(data)))
+    """
+    #if(id> 1048):
+     #   print(id)
+
+    # sees important UwU
+    #if(id == 1300):
+        #print(data)
+    if(id == 1056):
         print(data)
-        print(data[5:6])
+    

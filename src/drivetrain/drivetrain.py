@@ -44,24 +44,28 @@ def breakPeddleData(data):
     return int(obj)
     
 
-class Trans:
-
-    def inSportManual(self,data):
-         return binascii.hexlify(data[5:6])==b'8'
-        
-    # UwU in sport Mode
-    def inSport(self,data):
-        return binascii.hexlify(data[:2])==b'3031'
-
-    def inPark(self,data):
-         return binascii.hexlify(data[5:6])==b'7'
-
-    def inReverse(self,data):
-        return binascii.hexlify(data[5:6])==b'6'
+def inSportManual(data):
+    return data[5:6]==b'8'
     
-    def inNetural(self,data):
-        return binascii.hexlify(data[5:6])==b'5'
+# UwU in sport Mode
+def inSport(data):
+    return data[:2]==b'01'
 
-       
-    def inDriveNonSport(self,data):
-        return binascii.hexlify(data[5:6])==b'4'
+def inPark(data):
+    return data[5:6]==b'7'
+
+def inReverse(data):
+    return data[5:6]==b'6'
+
+def inNetural(data):
+    return data[5:6]==b'5'
+
+
+def inDriveNonSport(data):
+    return data[5:6]==b'4'
+
+def inSportFirstGear(data):
+    return  data[2:4]==b'09'
+
+def inSportSecondGear(data):
+    return  data[2:4]==b'12'
