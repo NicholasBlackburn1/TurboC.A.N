@@ -23,8 +23,7 @@ from scipy.fft import idstn
 from src.drivetrain.drivetrain import gasPeddleData, gasPeddleDataGeneral, inSportSecondGear, steeringWheelDataFine, steeringWheelDataGeneral, inPark, breakPeddleData, inSportFirstGear
 import src.drivetrain.drivetrain as drivetrain
 import src.utils.datafileUwU as uwu
-import src.gui.startgui as guistart
-import src.gui.testdisplay as display
+import src.gui.gui as guistart
 
 logging.basicConfig(filename="logs/"+"s"+".log", level=logging.DEBUG)
 
