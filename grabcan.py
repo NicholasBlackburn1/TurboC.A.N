@@ -68,7 +68,7 @@ def save_all_files():
 id = None
 data = None
 # starts gui display
-guistart.start()
+guistart.startUi()
 
 while True:
     msg = can0.recv(timeout=0.5)

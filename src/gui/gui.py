@@ -1,4 +1,7 @@
-
+"""
+car gui  display data
+TODO: need too fix dynamic text UwU
+"""
 
 from pickletools import uint1
 from matplotlib.pyplot import text
@@ -23,6 +26,23 @@ Neturalrect = pygame.Rect(260,0,100,100)
 Driverect = pygame.Rect(390,0,100,100)
 Sportdriverect = pygame.Rect(520,0,100,100)
 Manualrect = pygame.Rect(650,0,100,100)
+
+
+
+def text_to_screen(screen, text, x, y, size = 50,
+            color = (200, 000, 000), font_type = '/usr/share/fonts/TTF/Inconsolata-ExtraCondensedMedium.ttf'):
+    try:
+
+        text = str(text)
+        font = pygame.font.Font(font_type, size)
+        text = font.render(text, True, color)
+        screen.blit(text, (x, y))
+
+    except:
+        print ('Font Error, saw it coming')
+       
+
+
 def setpark(self,park):
     self.inpark =  park
 
@@ -47,6 +67,8 @@ def setManual(self,drive):
 def startUi():
     
     pygame.init()
+    pygame.font.init() # you have to call this at the start, 
+                   # if you want to use this module.
     
     pygame.display.set_caption('Quick Start')
     window_surface = pygame.display.set_mode((800, 600))
@@ -62,13 +84,15 @@ def startUi():
     pygame_gui.elements.UILabel(relative_rect=pygame.Rect((390,100,100,50)),text="In Drive ",manager=manager)
     pygame_gui.elements.UILabel(relative_rect=pygame.Rect((520,100,100,50)),text="In Sport ",manager=manager)
     pygame_gui.elements.UILabel(relative_rect=pygame.Rect((650,100,100,50)),text="In Manual ",manager=manager)
-
+    
     clock = pygame.time.Clock()
     is_running = True
-    
-
+   
     while is_running:
-        time_delta = clock.tick(60)/1000.0
+      
+        time_delta = clock.tick(144)/1000.0
+        text_to_screen(background,str(time_delta),500,500,24,(255,255,255))
+    
         
         # displayes whether the car is in park or not 
         if(inpark):
@@ -113,9 +137,6 @@ def startUi():
             
 
             manager.process_events(event)
-
-        pygame.draw.rect(window_surface,color='blue',rect=Parkrect)
-
 
         manager.update(time_delta)
 
