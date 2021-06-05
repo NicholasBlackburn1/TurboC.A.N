@@ -28,14 +28,6 @@ def gasPeddleData(data):
     pos =data[3]
     return pos
 
-def inPark(data):
-    
-    if(data[5] == 53):
-     
-      return True
-    else:
-        return False
-   
 
 def breakPeddleData(data):
    
@@ -49,13 +41,16 @@ def inSportManual(data):
     
 # UwU in sport Mode
 def inSport(data):
-    return data[:2]==b'01'
+   
+    if data[:2]==b'01':
+        return "Sport"
+    
 
 def inPark(data):
-    return data[5:6]==b'7'
+   return data[5:6]==b'7'
 
 def inReverse(data):
-    return data[5:6]==b'6'
+   return data[5:6]==b'6'
 
 def inNetural(data):
     return data[5:6]==b'5'
@@ -65,7 +60,14 @@ def inDriveNonSport(data):
     return data[5:6]==b'4'
 
 def inSportFirstGear(data):
-    return  data[2:4]==b'09'
+    return data[2:4]==b'09'
 
 def inSportSecondGear(data):
-    return  data[2:4]==b'12'
+    return data[2:4]==b'12'
+
+def gears(data):
+    inPark(data) 
+    inNetural(data)
+    inReverse(data)
+    inDriveNonSport(data)
+    inSport(data)
