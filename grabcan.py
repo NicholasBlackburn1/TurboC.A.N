@@ -199,10 +199,12 @@ while True:
          print("in firstGear?"+str(inSportFirstGear(data)))
          print("in SecondGear?"+str(inSportSecondGear(data)))
      """
-        display.setPark(drivetrain.inPark(data))
-        display.setReverse(drivetrain.inReverse(data))
-        display.setNetural(drivetrain.inNetural(data))
-        display.setDriveNonSport(drivetrain.inDriveNonSport(data))
+        guistart.setpark(guistart,park=drivetrain.inPark(data))
+        guistart.setReverse(guistart,reverse=drivetrain.inReverse(data))
+        guistart.setNeural(guistart,neural=drivetrain.inNetural(data))
+        guistart.setDrive(guistart,drive=drivetrain.inDriveNonSport(data))
+        guistart.setSport(guistart,drive=drivetrain.inSport(data))
+        guistart.setManual(guistart,drive=drivetrain.inSportManual(data))
 
 
     # if(id> 1048):

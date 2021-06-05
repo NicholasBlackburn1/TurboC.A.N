@@ -7,11 +7,12 @@ import pygame
 import pygame_gui
 
 
-inpark = False
+inpark = None
 inReverse = None
 inNeural = None
 inDrive = None
 inSport = None
+isManual = None
 
 background = pygame.Surface((800, 600))
 #x,y,width,hight rect   
@@ -21,7 +22,7 @@ Reverserect = pygame.Rect(130,0,100,100)
 Neturalrect = pygame.Rect(260,0,100,100)
 Driverect = pygame.Rect(390,0,100,100)
 Sportdriverect = pygame.Rect(520,0,100,100)
-
+Manualrect = pygame.Rect(650,0,100,100)
 def setpark(self,park):
     self.inpark =  park
 
@@ -35,6 +36,13 @@ def setNeural(self,neural):
 
 def setDrive(self,drive):
     self.inDrive= drive
+
+def setSport(self,drive):
+    self.inSport= drive
+
+
+def setManual(self,drive):
+    self.inManual= drive
 
 def startUi():
     
@@ -53,7 +61,7 @@ def startUi():
     pygame_gui.elements.UILabel(relative_rect=pygame.Rect((260,100,100,50)),text="In Neutral ",manager=manager)
     pygame_gui.elements.UILabel(relative_rect=pygame.Rect((390,100,100,50)),text="In Drive ",manager=manager)
     pygame_gui.elements.UILabel(relative_rect=pygame.Rect((520,100,100,50)),text="In Sport ",manager=manager)
-
+    pygame_gui.elements.UILabel(relative_rect=pygame.Rect((650,100,100,50)),text="In Manual ",manager=manager)
 
     clock = pygame.time.Clock()
     is_running = True
@@ -89,6 +97,11 @@ def startUi():
             pygame.draw.rect(background,color='green',rect=Sportdriverect)
         else:
             pygame.draw.rect(background,color='red',rect=Sportdriverect)
+
+        if(isManual):
+            pygame.draw.rect(background,color='green',rect=Manualrect)
+        else:
+            pygame.draw.rect(background,color='red',rect=Manualrect)
 
 
 
