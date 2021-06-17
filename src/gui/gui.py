@@ -30,7 +30,7 @@ Manualrect = pygame.Rect(650,0,100,100)
 
 
 def text_to_screen(screen, text, x, y, size = 50,
-            color = (200, 000, 000), font_type = '/usr/share/fonts/TTF/Inconsolata-ExtraCondensedMedium.ttf'):
+            color = (200, 000, 000), font_type = '/home/nicholas/Desktop/cardev/src/gui/Kagura.ttf'):
     try:
 
         text = str(text)
@@ -70,7 +70,7 @@ def startUi():
     pygame.font.init() # you have to call this at the start, 
                    # if you want to use this module.
     
-    pygame.display.set_caption('Quick Start')
+    pygame.display.set_caption('Nicholas Blackburns Car Data Display UwU Furries Rulz')
     window_surface = pygame.display.set_mode((800, 600))
 
     background = pygame.Surface((800, 600))
@@ -84,6 +84,8 @@ def startUi():
     pygame_gui.elements.UILabel(relative_rect=pygame.Rect((390,100,100,50)),text="In Drive ",manager=manager)
     pygame_gui.elements.UILabel(relative_rect=pygame.Rect((520,100,100,50)),text="In Sport ",manager=manager)
     pygame_gui.elements.UILabel(relative_rect=pygame.Rect((650,100,100,50)),text="In Manual ",manager=manager)
+
+    #pygame_gui.elements.UIImage(relative_rect=pygame.Rect((0,100,100,50)),image_surface="/home/nicholas/Desktop/cardev/src/gui/resources/gauge.png",manager=manager)
     
     clock = pygame.time.Clock()
     is_running = True
@@ -91,8 +93,7 @@ def startUi():
     while is_running:
       
         time_delta = clock.tick(144)/1000.0
-        text_to_screen(background,str(time_delta),500,500,24,(255,255,255))
-    
+        #text_to_screen(background,str("Car Data"),250,196,35,(255,255,255))    
         
         # displayes whether the car is in park or not 
         if(inpark):

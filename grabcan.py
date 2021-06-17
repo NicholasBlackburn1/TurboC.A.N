@@ -23,7 +23,6 @@ from scipy.fft import idstn
 from src.drivetrain.drivetrain import gasPeddleData, gasPeddleDataGeneral, inSportSecondGear, steeringWheelDataFine, steeringWheelDataGeneral, inPark, breakPeddleData, inSportFirstGear
 import src.drivetrain.drivetrain as drivetrain
 import src.utils.datafileUwU as uwu
-import src.gui.gui as guistart
 
 logging.basicConfig(filename="logs/"+"s"+".log", level=logging.DEBUG)
 
@@ -68,7 +67,7 @@ def save_all_files():
 id = None
 data = None
 # starts gui display
-guistart.startUi()
+#guistart.startUi()
 
 while True:
     msg = can0.recv(timeout=0.5)
@@ -198,13 +197,9 @@ while True:
          # UwU gear Shift
          print("in firstGear?"+str(inSportFirstGear(data)))
          print("in SecondGear?"+str(inSportSecondGear(data)))
+
      """
-        guistart.setpark(guistart,park=drivetrain.inPark(data))
-        guistart.setReverse(guistart,reverse=drivetrain.inReverse(data))
-        guistart.setNeural(guistart,neural=drivetrain.inNetural(data))
-        guistart.setDrive(guistart,drive=drivetrain.inDriveNonSport(data))
-        guistart.setSport(guistart,drive=drivetrain.inSport(data))
-        guistart.setManual(guistart,drive=drivetrain.inSportManual(data))
+       # print(data)
 
 
     # if(id> 1048):
@@ -213,5 +208,11 @@ while True:
     # sees important UwU
     # if(id == 1300):
         # print(data)
-    if(id == 1056):
-        print(data)
+    if(id == 1536):
+       pass
+
+    if(id == 1298):
+        print(data[1:3])
+
+
+        

@@ -3,6 +3,8 @@
 
 *Reverse Engineering can bus ids to understand what id's do what in my car to improve car's functionalities*
 
+## **Ids are not translated to 0x0000 format**
+
 **P.s higher the C.A.N Id the More Critical the Device is**
 
 **UnKnown Kan ids  1398, 1536, 1057,1058 of Interest**
@@ -18,7 +20,7 @@
 
  ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      |
 | ------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ------------- |
-| 0x1041   | 04   | ff   | 3f-fb  | 00-fc   | 00   | 00   | 00   | C0   | Unknown|
+| 1041   | 04   | ff   | 3f-fb  | 00-fc   | 00   | 00   | 00   | C0   | Unknown|
 
 
 
@@ -27,7 +29,7 @@
 #### still Dont know what B3 is i assume thats is and finer incremented
 ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      |
 | ------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ------------- |
-| 0x02   | 0e-fe   | 00-f1   | 00-ee  | 00   | 00   | 00   | 00   | 01   | Wheel getting turned)|
+| 02   | 0e-fe   | 00-f1   | 00-ee  | 00   | 00   | 00   | 00   | 01   | Wheel getting turned)|
 
 
 ## GasPeddle I think ( counts in hexaDesimal)
@@ -41,7 +43,7 @@ ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      
 #### B8 Seems to See if Peddle is Gas Pressed or released
 ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      |
 | ------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ------------- |
-| 0x1040  | 00-ef   | 00-ef  | 00-ff  | 13-14 | 00   | 00-ff   | 00-0b   | c0-00   | Gas pos i think)|
+| 1040  | 00-ef   | 00-ef  | 00-ff  | 13-14 | 00   | 00-ff   | 00-0b   | c0-00   | Gas pos i think)|
 
 
     
@@ -50,7 +52,7 @@ ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      
 
 ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      |
 | ------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ------------- |
-| 0x1300 | 00-08   | 00 |  fe-76 | 00  | 0c-08   | 80   | e0-ff   | 00-ff   | Something)|
+| 1300 | 00-08   | 00 |  fe-76 | 00  | 0c-08   | 80   | e0-ff   | 00-ff   | Something)|
 
 
  
@@ -61,13 +63,13 @@ ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      
 
 ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      |
 | ------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ------------- |
-| 0x1537 | 08   | d3    |  00 | 13-ff  | 00-ff   | 00   | 00   | 00   | engine throttle flap pos)|
+| 1537 | 08   | d3    |  00 | 13-ff  | 00-ff   | 00   | 00   | 00   | engine throttle flap pos)|
 
 
 ## Unknown Because when parked shows no data
 ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      |
 | ------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ------------- |
-| 0x1299 | 00   |00    |  00 | 00  | 00   | 00   | 00   | 00   | Unknown)|
+| 1299 | 00   |00    |  00 | 00  | 00   | 00   | 00   | 00   | Unknown)|
 
 
 ## Break / Something Is Unknown
@@ -76,14 +78,14 @@ ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      
 #### B7 seems to be a cointor to
 ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      |
 | ------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ------------- |
-| 0x1298 | 00   |00    |  00 | 00  | 80-90   | 00-ff   | 00-ff   | 00-ff   | Unknown)|
+| 1298 | 00   |00    |  00 | 00  | 80-90   | 00-ff   | 00-ff   | 00-ff   | Unknown)|
 
 
 ## Ok Actually Break Pos or Pressure
 #### B5 seems to Detect only if the break pressure/pos
 ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      |
 | ------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ------------- |
-| 0x1297 | ff   |ff    |  00 | 00  | 00-80   | ff   | 00   |00   | Break Pressure /Pos)|
+| 1297 | ff   |ff    |  00 | 00  | 00-80   | ff   | 00   |00   | Break Pressure /Pos)|
 
 
 
@@ -91,7 +93,7 @@ ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      
 #### B6 seems is incrementing
 ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      |
 | ------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ------------- |
-| 0x1281 | 00   |00    |  00 | ff  | 00   | 00-99   | 00   |00   | Something)|
+| 1281 | 00   |00    |  00 | ff  | 00   | 00-99   | 00   |00   | Something)|
 
 
 
@@ -99,7 +101,7 @@ ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      
 #### B3 Byte that shows if Car is in park or not
 ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      |
 | ------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ------------- |
-| 0x1568 | 00   |00    |  05-01 | 00  | 00   | 00   | 00   |00   |  Check if car is in Park or not)|
+| 1568 | 00   |00    |  05-01 | 00  | 00   | 00   | 00   |00   |  Check if car is in Park or not)|
 
 
 
@@ -108,7 +110,7 @@ ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      
 #### B3  Maby second byte of rpms?
 ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      |
 | ------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ------------- |
-| 0x1536 | 00   |00-ff    | 00-ff | 00-  | 00   | 00   | 00   |00   |  Check if car is in Park or not)|
+| 1536 | 00   |00-ff    | 00-ff | 00-  | 00   | 00   | 00   |00   |  Check if car is in Park or not)|
 
 
 
@@ -123,7 +125,7 @@ ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      
 #### B8 Seems to See if Peddle is Gas Pressed or released
 ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      |
 | ------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ------------- |
-| 0x1042  | 00-ef   | 00-ef  | 00-ff  | 13-14 | 00   | 00-ff   | 00-0b   | c0-00   | Gas / rpm)|
+| 1042  | 00-ef   | 00-ef  | 00-ff  | 13-14 | 00   | 00-ff   | 00-0b   | c0-00   | Gas / rpm)|
 
 
 
@@ -138,5 +140,19 @@ ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      
 #### B8 Seems to See if Peddle is Gas Pressed or released
 ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      |
 | ------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ------------- |
-| 0x1058 | 00-01  | 09-12 | 00-ff  | 13-14 | 00   | 00-ff   | 00-0b   | c0-00   | Gas / rpm)|
+| 1058 | 00-01  | 09-12 | 00-ff  | 13-14 | 00   | 00-ff   | 00-0b   | c0-00   | Transmitiong)|
+
+## Traction Control?
+#### B1
+#### B2
+#### B3
+#### B4
+#### B5
+#### B6
+#### B7
+#### B8
+
+ID      | B1   | B2   | B3   | B4   | B5   | B6   | B7   | B8   | Comments      |
+| ------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ------------- |
+| 1298 | 00-10  | 00-e0 | 00-ff  | 00-ff | 00   | 00-ff   | 00-0b   | c0-00   | Traction Control)|
 

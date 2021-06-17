@@ -5,7 +5,7 @@ Drivetrain Data Grabbing
 
 import binascii
 import logging
-import gpiozero
+
 
 # gets data from Steering System and retunds the rounding info
 def steeringWheelDataGeneral(data):

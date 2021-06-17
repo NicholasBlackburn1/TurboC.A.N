@@ -8,7 +8,7 @@ import datetime
 from sqlite3 import Date
 from uuid import uuid4
 import numpy as np
-import pandas as pd
+
 import pathlib
 import logging as logger
 import avro.schema
@@ -18,36 +18,36 @@ from time import sleep
 
 
 Location = str("Tyquando_2021-05-26/")
-StorePath = str("/home/nicholas/Desktop/cardev/output/")
+StorePath = str("/home/nicky/Documents/cardev/output/")
 
 gasschema = avro.schema.parse(
-    open("/home/nicholas/Desktop/cardev/src/utils/gas.avsc", "rb").read())
+    open("/home/nicky/Documents/cardev/src/utils/gas.avsc", "rb").read())
 gaswriter = DataFileWriter(
     open(str(StorePath)+str("gas")+".avro", "wb"), DatumWriter(), gasschema)
 
 breakschema = avro.schema.parse(
-    open("/home/nicholas/Desktop/cardev/src/utils/break.avsc", "rb").read())
+    open("/home/nicky/Documents/cardev/src/utils/break.avsc", "rb").read())
 breakwriter = DataFileWriter(
     open(str(StorePath)+str("break")+".avro", "wb"), DatumWriter(), breakschema)
 
 Stearingschema = avro.schema.parse(
-    open("/home/nicholas/Desktop/cardev/src/utils/stearing.avsc", "rb").read())
+    open("/home/nicky/Documents/cardev/src/utils/stearing.avsc", "rb").read())
 Stearingwriter = DataFileWriter(
     open(StorePath+"stearing"+".avro", "wb"), DatumWriter(), Stearingschema)
 
 
 
 Incschema = avro.schema.parse(
-    open("/home/nicholas/Desktop/cardev/src/utils/inc.avsc", "rb").read())
+    open("/home/nicky/Documents/cardev/src/utils/inc.avsc", "rb").read())
 Incwriter = DataFileWriter(
     open(StorePath+"inc"+".avro", "wb"), DatumWriter(), Incschema)
 
 rpmschema = avro.schema.parse(
-    open("/home/nicholas/Desktop/cardev/src/utils/rpm.avsc", "rb").read())
+    open("/home/nicky/Documents/cardev/src/utils/rpm.avsc", "rb").read())
 rpmwriter = DataFileWriter(
     open(StorePath+"rpm"+".avro", "wb"), DatumWriter(), rpmschema)
 newgasschema = avro.schema.parse(
-    open("/home/nicholas/Desktop/cardev/src/utils/rpm?.avsc", "rb").read())
+    open("/home/nicky/Documents/cardev/src/utils/rpm?.avsc", "rb").read())
 newgaswriter = DataFileWriter(
     open(StorePath+"rpm?"+".avro", "wb"), DatumWriter(), newgasschema)
 

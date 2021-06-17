@@ -1,10 +1,8 @@
-{"namespace": "car.peddel.brake",
+{"namespace": "car.engine",
  "type": "record",
- "name": "CarData",
+ "name": "rpm",
  "fields": [
      {"name": "name", "type": "string"},
-     {"name": "finerPos",  "type": ["int", "null"]},
-     {"name": "generalPos", "type": ["int", "null"]},
-     {"name": "rpm1",  "type": ["int", "null"]},
-     {"name": "rpm2", "type": ["int", "null"]}
+     {"name": "rpm",  "type": "int"},
+     {"name": "peddelpos", "type": "int"}
  ]}
