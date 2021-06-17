@@ -77,7 +77,7 @@ while True:
         heartbeat += 1
         print("hartbeet:"+str(heartbeat))
     else:
-        id = int(msg.arbitration_id)
+        id = '0x{0:0{1}X}'.format(msg.arbitration_id, 8 if msg.is_extended_id else 3)
         data = (binascii.hexlify(msg.data))
 
     # Saves all files and exiteds program
