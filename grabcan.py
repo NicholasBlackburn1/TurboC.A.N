@@ -18,7 +18,6 @@ import logging
 from configparser import ConfigParser
 import time
 
-from scipy.fft import idstn
 
 from src.drivetrain.drivetrain import gasPeddleData, gasPeddleDataGeneral, inSportSecondGear, steeringWheelDataFine, steeringWheelDataGeneral, inPark, breakPeddleData, inSportFirstGear
 import src.drivetrain.drivetrain as drivetrain
@@ -89,11 +88,11 @@ while True:
         break
 
     # checks to see if the car is in park
-    if(id == 1568):
+    if(id == '0x620'):
         inGear = inPark(data)
 
     # steering Data UwU
-    if(id == 2):
+    if(id == '0x002'):
         fine = ((int(steeringWheelDataFine(data)) * 255 +
                  int(steeringWheelDataGeneral(data)))/26*255)
         general = (
@@ -101,35 +100,33 @@ while True:
 
         logging.warn(
             "getting Data from Steering - > dumping it to the avro file")
-        uwu.dumpStearingData(name=str(stearing), datafine=fine,
-                             datagen=general, inc=int(binascii.hexlify(data[4:6])))
+        #uwu.dumpStearingData(name=str(stearing), datafine=fine,
+                             #datagen=general, inc=int(binascii.hexlify(data[4:6])))
 
         stearing += 1
 
     if(id == 1040):
         logging.warn("getting Data from gas - > dumping it to the avro file")
-        uwu.dumpGasData(name=str(gas), datafine=gasPeddleData(
-            data), datagen=gasPeddleDataGeneral(data))
+        #uwu.dumpGasData(name=str(gas), datafine=gasPeddleData(
+           # data), datagen=gasPeddleDataGeneral(data))
         gas += 1
 
     # checks the break peddel
-    if(id == 1297):
+    if(id == '0x513'):
        # print("Break:"+" " + str(breakPeddleData(data)))
         logging.warn("getting Data from break - > dumping it to the avro file")
-        uwu.dumpbreakData(name=str(breakdex), data=breakPeddleData(data))
-        breakdex += 1  
-
-    if(id == 1299):
-        pass
+        #uwu.dumpbreakData(name=str(breakdex), data=breakPeddleData(data))
+       # breakdex += 1  
+       
 
     # throttle Flap sensor Data
-    if(id == 1537):
+    if(id == '0x410'):
         #print("id 1537:  "+ " "+ str(int(data[7])*10))
         #print ("rpms x1000"+ " "+ str((int(data[7]<<8)* 256)+15))
         # print("Break:"+" " + str(breakPeddleData(data)))
         logging.warn("getting Data from rpm - > dumping it to the avro file")
-        uwu.dumprpmData(name=str(rpm), rpm=(
-            int(data[7])), datagen=(int(data[8])))
+        #uwu.dumprpmData(name=str(rpm), rpm=(
+         #   int(data[7])), datagen=(int(data[8])))
 
         rpm += 1
    # if(id > 100):
@@ -170,22 +167,17 @@ while True:
         print("16"+" "+str(data[15]))
     """
 
-    if(id == 1281):
-        uwu.dumpIncData(inc, data[10], data[11])
-        inc += 1
+
     """    
     if(id == 1042):
         uwu.dumpNewGasData(newgas,int(binascii.hexlify(data[:2])),int(binascii.hexlify(data[10:12])),int(binascii.hexlify(data[2:4])),int(binascii.hexlify(data[4:6])))
         newgas+=1
     """
 
-    if(id == 1393):
-        # print(data)
-        pass
 
   #  if(id == 1536):
   #      print(data)
-    if(id == 1058):
+    if(id == '0x422'):
        # rint(data)
         """
          print("in park?"+ " "+str(drivetrain.inPark(data)))
@@ -211,8 +203,9 @@ while True:
     if(id == 1536):
        pass
 
-    if(id == 1298):
+    if(id == '0x512'):
         print(data[1:3])
 
+  
 
         
